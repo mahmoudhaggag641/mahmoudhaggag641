@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Mahmoud Said Haggag — Senior Full Stack Software Engineer with 9+ years building scalable, production-grade web and mobile platforms with Laravel, Vue.js, and modern DevOps." />
+  <meta name="keywords" content="Mahmoud Haggag, Full Stack Developer, Laravel Developer, Vue.js Developer, PHP Developer, Backend Engineer, Software Engineer Egypt, Alexandria" />
+  <meta name="author" content="Mahmoud Said Haggag" />
+
+  <meta property="og:title" content="Mahmoud Said Haggag — Senior Full Stack Software Engineer" />
+  <meta property="og:description" content="9+ years of experience building scalable, production-grade web and mobile platforms — Laravel, Vue.js, and modern DevOps." />
+  <meta property="og:image" content="assets/img/MY-PHOTO.jpeg" />
+  <meta property="og:type" content="website" />
+
+  <title>Mahmoud Haggag — Senior Full Stack Software Engineer</title>
+
+  <link rel="icon" type="image/jpeg" href="assets/img/MY-PHOTO.jpeg" />
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+          },
+          colors: {
+            ink: {
+              950: '#070a13',
+              900: '#0b1020',
+              800: '#111827',
+              700: '#1f2937',
+            },
+            brand: {
+              50:  '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+            },
+          },
+          animation: {
+            'fade-up': 'fadeUp 0.7s ease-out both',
+            'fade-in': 'fadeIn 0.7s ease-out both',
+            'float':   'float 6s ease-in-out infinite',
+            'spin-slow': 'spin 18s linear infinite',
+          },
+          keyframes: {
+            fadeUp: {
+              '0%':   { opacity: '0', transform: 'translateY(24px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            fadeIn: {
+              '0%':   { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%':      { transform: 'translateY(-10px)' },
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Vue 3 via CDN (global build for use directly in HTML) -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="assets/css/app.css?v=1" />
+</head>
+
+<body class="bg-ink-950 text-slate-200 font-sans antialiased selection:bg-brand-500/40 selection:text-white">
+
+  <div id="app" v-cloak>
+
+    <!-- ============== Decorative blobs ============== -->
+    <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+      <div class="absolute -top-40 -left-40 w-[40rem] h-[40rem] rounded-full bg-brand-700/20 blur-3xl"></div>
+      <div class="absolute top-1/3 -right-40 w-[32rem] h-[32rem] rounded-full bg-fuchsia-700/10 blur-3xl"></div>
+      <div class="absolute bottom-0 left-1/3 w-[28rem] h-[28rem] rounded-full bg-cyan-700/10 blur-3xl"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(7,10,19,0.85)_70%)]"></div>
+    </div>
+
+    <!-- ============== Navigation ============== -->
+    <header
+      class="fixed inset-x-0 top-0 z-40 transition-all duration-300"
+      :class="scrolled ? 'bg-ink-950/80 backdrop-blur-md border-b border-white/5' : 'bg-transparent'">
+      <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+        <a href="#home" class="flex items-center gap-3 group">
+          <span class="relative flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-brand-500 to-fuchsia-600 text-sm font-bold text-white shadow-lg shadow-brand-600/30">
+            MH
+          </span>
+          <span class="hidden sm:inline text-sm font-semibold tracking-wider text-slate-100 group-hover:text-white">
+            Mahmoud&nbsp;Haggag
+          </span>
+        </a>
+
+        <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+          <li v-for="link in navLinks" :key="link.id">
+            <a :href="'#' + link.id"
+               class="hover:text-white transition-colors relative py-2"
+               :class="{ 'text-white': activeSection === link.id }">
+              {{ link.label }}
+              <span v-if="activeSection === link.id"
+                    class="absolute -bottom-0.5 left-0 right-0 h-0.5 rounded bg-gradient-to-r from-brand-400 to-fuchsia-500"></span>
+            </a>
+          </li>
+        </ul>
+
+        <div class="flex items-center gap-3">
+          <a href="#contact"
+             class="hidden sm:inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white hover:bg-white/10 transition">
+            Get in touch
+          </a>
+          <button @click="mobileMenuOpen = !mobileMenuOpen"
+                  class="md:hidden inline-flex items-center justify-center rounded-lg border border-white/10 bg-white/5 p-2 text-white"
+                  aria-label="Toggle menu">
+            <svg v-if="!mobileMenuOpen" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg v-else class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Mobile menu -->
+      <div v-if="mobileMenuOpen" class="md:hidden border-t border-white/5 bg-ink-950/95 backdrop-blur">
+        <ul class="px-4 py-3 space-y-1 text-sm">
+          <li v-for="link in navLinks" :key="link.id">
+            <a :href="'#' + link.id"
+               @click="mobileMenuOpen = false"
+               class="block rounded-md px-3 py-2 text-slate-300 hover:bg-white/5 hover:text-white">
+              {{ link.label }}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <main>
+
+      <!-- ============== Hero ============== -->
+      <section id="home" class="relative pt-32 pb-20 lg:pt-40 lg:pb-28">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="grid lg:grid-cols-12 gap-12 items-center">
+
+            <div class="lg:col-span-7 animate-fade-up">
+              <span class="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-300">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+                </span>
+                Available for new opportunities
+              </span>
+
+              <h1 class="mt-6 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
+                Hi, I'm <span class="bg-gradient-to-r from-brand-300 via-fuchsia-400 to-cyan-300 bg-clip-text text-transparent">Mahmoud Haggag</span>.
+                <br />
+                <span class="text-slate-200">Senior Full Stack Engineer.</span>
+              </h1>
+
+              <p class="mt-6 max-w-2xl text-lg text-slate-400 leading-relaxed">
+                I design and build <span class="text-slate-200 font-medium">scalable, secure, production-grade</span>
+                web and mobile platforms. 9+ years shipping enterprise systems across education,
+                eCommerce, ERP, fintech, logistics, healthcare, travel, investment, AI-driven research, government, AI/ML, and more — backed by clean
+                architecture, strong APIs, and DevOps automation.
+              </p>
+
+              <div class="mt-8 flex flex-wrap items-center gap-4">
+                <a href="#projects"
+                   class="group inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-brand-500 to-fuchsia-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-600/30 hover:shadow-brand-600/50 hover:-translate-y-0.5 transition">
+                  View my work
+                  <svg class="h-4 w-4 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </a>
+                <a href="#contact"
+                   class="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10 transition">
+                  Contact me
+                </a>
+              </div>
+
+              <!-- Quick stats -->
+              <dl class="mt-10 grid grid-cols-3 gap-6 max-w-xl border-t border-white/5 pt-8">
+                <div>
+                  <dt class="text-xs uppercase tracking-wider text-slate-500">Experience</dt>
+                  <dd class="mt-1 text-2xl font-bold text-white">9+ <span class="text-sm font-medium text-slate-400">years</span></dd>
+                </div>
+                <div>
+                  <dt class="text-xs uppercase tracking-wider text-slate-500">Projects</dt>
+                  <dd class="mt-1 text-2xl font-bold text-white">50+ <span class="text-sm font-medium text-slate-400">shipped</span></dd>
+                </div>
+                <div>
+                  <dt class="text-xs uppercase tracking-wider text-slate-500">Clients</dt>
+                  <dd class="mt-1 text-2xl font-bold text-white">7+ <span class="text-sm font-medium text-slate-400">companies</span></dd>
+                </div>
+              </dl>
+            </div>
+
+            <!-- Photo -->
+            <div class="lg:col-span-5 flex justify-center lg:justify-end animate-fade-in">
+              <div class="relative">
+                <div class="absolute -inset-4 rounded-full bg-gradient-to-br from-brand-500/30 via-fuchsia-500/20 to-cyan-500/20 blur-2xl"></div>
+                <div class="absolute -inset-1 rounded-full bg-gradient-to-br from-brand-400 via-fuchsia-500 to-cyan-400 opacity-70 animate-spin-slow [mask-image:linear-gradient(white,transparent_70%)]"></div>
+                <div class="relative h-72 w-72 sm:h-80 sm:w-80 lg:h-96 lg:w-96 overflow-hidden rounded-full ring-4 ring-white/10 shadow-2xl">
+                  <img src="assets/img/MY-PHOTO.jpeg" alt="Mahmoud Said Haggag" class="h-full w-full object-cover [object-position:center_22%]" />
+                </div>
+
+                <!-- Floating badges -->
+                <div class="absolute -left-4 top-10 hidden md:flex items-center gap-2 rounded-xl border border-white/10 bg-ink-900/80 backdrop-blur px-3 py-2 text-xs font-medium shadow-xl animate-float">
+                  <span class="h-6 w-6 rounded-md bg-rose-500/20 text-rose-300 grid place-items-center">L</span>
+                  Laravel · Backend
+                </div>
+                <div class="absolute -right-4 bottom-12 hidden md:flex items-center gap-2 rounded-xl border border-white/10 bg-ink-900/80 backdrop-blur px-3 py-2 text-xs font-medium shadow-xl animate-float" style="animation-delay: -3s;">
+                  <span class="h-6 w-6 rounded-md bg-emerald-500/20 text-emerald-300 grid place-items-center">V</span>
+                  Vue · Nuxt
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============== About ============== -->
+      <section id="about" class="py-20 lg:py-28">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="grid lg:grid-cols-12 gap-12">
+            <div class="lg:col-span-4">
+              <h2 class="section-heading">About me</h2>
+              <p class="section-kicker">
+                Backend-focused full stack engineer with a soft spot for clean architecture,
+                fast APIs, and the systems that quietly run the business.
+              </p>
+            </div>
+
+            <div class="lg:col-span-8 space-y-6 text-slate-300 leading-relaxed">
+              <p>
+                I'm <strong class="text-white">Mahmoud Said Haggag</strong>, a Senior Full Stack
+                Software Engineer with a B.Sc. in Computer Science from
+                Menoufia University. Over the past 9+ years I've designed and shipped enterprise-grade
+                platforms across education, eCommerce, fintech, logistics, healthcare, travel, AI-driven research, government,
+                and more.
+              </p>
+              <p>
+                My core stack is <strong class="text-white">Laravel (PHP)</strong> on the backend and
+                <strong class="text-white">Vue.js / Nuxt.js</strong> on the frontend — backed by REST &amp; SOAP
+                APIs, WebSockets, MySQL/Oracle/MongoDB, Docker, and CI/CD pipelines. I care about
+                writing code that's tested, readable, and built to outlive me on the team.
+              </p>
+              <p>
+                I work well solo and inside Agile teams (Scrum / Kanban), I learn fast, and I love
+                turning vague product asks into systems that just work.
+              </p>
+
+              <div class="grid sm:grid-cols-2 gap-4 pt-4">
+                <div class="card-soft p-5">
+                  <h3 class="text-sm font-semibold text-white">📍 Location</h3>
+                  <p class="mt-1 text-sm text-slate-400">Alexandria, Egypt — open to on-site or remote</p>
+                </div>
+                <div class="card-soft p-5">
+                  <h3 class="text-sm font-semibold text-white">🎓 Education</h3>
+                  <p class="mt-1 text-sm text-slate-400">B.Sc. Computer Science, Menoufia University (2012–2016)</p>
+                </div>
+                <div class="card-soft p-5">
+                  <h3 class="text-sm font-semibold text-white">💼 Experience</h3>
+                  <p class="mt-1 text-sm text-slate-400">9+ years · 50+ production systems · 7+ companies across SA &amp; EG</p>
+                </div>
+                <div class="card-soft p-5">
+                  <h3 class="text-sm font-semibold text-white">🌐 Languages</h3>
+                  <p class="mt-1 text-sm text-slate-400">Arabic (Native) · English (Proficient)</p>
+                </div>
+                <div class="card-soft p-5">
+                  <h3 class="text-sm font-semibold text-white">🎯 Industries</h3>
+                  <p class="mt-1 text-sm text-slate-400">17+ verticals — Education, ERP, Fintech, GIS, Government, AI/ML, Logistics &amp; more</p>
+                </div>
+                <div class="card-soft p-5">
+                  <h3 class="text-sm font-semibold text-white">🤖 How I work</h3>
+                  <p class="mt-1 text-sm text-slate-400">AI-augmented workflow · Agile (Scrum/Kanban) · TDD/BDD · Clean Architecture</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============== Skills ============== -->
+      <section id="skills" class="py-20 lg:py-28 bg-gradient-to-b from-transparent via-ink-900/40 to-transparent">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="max-w-2xl">
+            <h2 class="section-heading">Technical skills</h2>
+            <p class="section-kicker">The tools I reach for, organized by where they live in the stack.</p>
+          </div>
+
+          <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div v-for="(group, idx) in skills" :key="group.title"
+                 class="card-soft p-6 hover:border-brand-500/30 transition group">
+              <div class="flex items-center gap-3">
+                <div class="h-10 w-10 rounded-lg bg-gradient-to-br from-brand-500/20 to-fuchsia-500/20 grid place-items-center text-brand-300 group-hover:text-white transition">
+                  <span v-html="group.icon"></span>
+                </div>
+                <h3 class="text-base font-semibold text-white">{{ group.title }}</h3>
+              </div>
+              <ul class="mt-4 flex flex-wrap gap-2">
+                <li v-for="item in group.items" :key="item"
+                    class="text-xs font-medium px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-300">
+                  {{ item }}
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Methodologies & Practices (CV-style discipline list) -->
+          <div class="mt-20 max-w-2xl">
+            <h2 class="section-heading">Methodologies &amp; practices</h2>
+            <p class="section-kicker">How I structure work, reason about systems, and ship reliably — beyond the toolset above.</p>
+          </div>
+
+          <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div v-for="group in practices" :key="group.title"
+                 class="card-soft p-6 hover:border-fuchsia-500/30 transition group">
+              <div class="flex items-center gap-3">
+                <div class="h-10 w-10 rounded-lg bg-gradient-to-br from-fuchsia-500/20 to-cyan-500/20 grid place-items-center text-fuchsia-300 group-hover:text-white transition">
+                  <span v-html="group.icon"></span>
+                </div>
+                <h3 class="text-sm font-semibold text-white leading-snug">{{ group.title }}</h3>
+              </div>
+              <ul class="mt-4 space-y-2 text-sm text-slate-400 leading-relaxed">
+                <li v-for="item in group.items" :key="item" class="flex gap-2">
+                  <span class="text-fuchsia-400/80 mt-0.5 flex-shrink-0">▸</span>
+                  <span>{{ item }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Soft Skills & Languages -->
+          <div class="mt-20 max-w-2xl">
+            <h2 class="section-heading">Soft skills &amp; languages</h2>
+            <p class="section-kicker">Who I am beyond the keyboard, and how I communicate.</p>
+          </div>
+
+          <div class="mt-12 grid gap-6 md:grid-cols-2">
+            <!-- Soft skills -->
+            <div class="card-soft p-6 hover:border-cyan-500/30 transition group">
+              <div class="flex items-center gap-3">
+                <div class="h-10 w-10 rounded-lg bg-gradient-to-br from-cyan-500/20 to-emerald-500/20 grid place-items-center text-cyan-300 group-hover:text-white transition">
+                  <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 4.5 0 116.364 6.364L12 20.364l-7.682-7.682a4.5 4.5 0 010-6.364z" />
+                  </svg>
+                </div>
+                <h3 class="text-base font-semibold text-white">Soft skills</h3>
+              </div>
+              <ul class="mt-4 space-y-2 text-sm text-slate-300 leading-relaxed">
+                <li v-for="item in softSkills" :key="item" class="flex gap-2">
+                  <span class="text-cyan-400/80 mt-0.5 flex-shrink-0">▸</span>
+                  <span>{{ item }}</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Language skills -->
+            <div class="card-soft p-6 hover:border-emerald-500/30 transition group">
+              <div class="flex items-center gap-3">
+                <div class="h-10 w-10 rounded-lg bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 grid place-items-center text-emerald-300 group-hover:text-white transition">
+                  <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.6 9h16.8M3.6 15h16.8M11.5 3a17 17 0 000 18M12.5 3a17 17 0 010 18M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h3 class="text-base font-semibold text-white">Languages</h3>
+              </div>
+              <ul class="mt-5 space-y-5">
+                <li v-for="l in languageSkills" :key="l.lang">
+                  <!-- Header: flag + language + (optional) overall level -->
+                  <div class="flex items-center justify-between text-sm">
+                    <span class="font-medium text-white flex items-center gap-2">
+                      <span class="text-base">{{ l.flag }}</span>
+                      {{ l.lang }}
+                    </span>
+                    <span v-if="l.level"
+                          class="text-xs font-mono uppercase tracking-wider text-emerald-300">{{ l.level }}</span>
+                  </div>
+
+                  <!-- Simple bar (no breakdown) -->
+                  <div v-if="!l.breakdown" class="mt-2 h-1.5 w-full rounded-full bg-white/5 overflow-hidden">
+                    <div class="h-full rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400"
+                         :style="{ width: l.percent + '%' }"></div>
+                  </div>
+
+                  <!-- Per-skill breakdown -->
+                  <div v-else class="mt-3 grid grid-cols-2 gap-x-5 gap-y-3">
+                    <div v-for="b in l.breakdown" :key="b.name">
+                      <div class="flex items-center justify-between text-xs mb-1">
+                        <span class="text-slate-300">{{ b.name }}</span>
+                        <span class="font-mono uppercase tracking-wider text-[10px] text-emerald-300/90">{{ b.level }}</span>
+                      </div>
+                      <div class="h-1 w-full rounded-full bg-white/5 overflow-hidden">
+                        <div class="h-full rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400"
+                             :style="{ width: b.percent + '%' }"></div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============== Experience ============== -->
+      <section id="experience" class="py-20 lg:py-28">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="max-w-2xl">
+            <h2 class="section-heading">Work experience</h2>
+            <p class="section-kicker">A timeline of where I've spent my coding hours over the last decade.</p>
+          </div>
+
+          <div class="mt-14 relative">
+            <!-- Vertical line -->
+            <div class="absolute left-4 sm:left-1/2 -translate-x-px top-2 bottom-2 w-px bg-gradient-to-b from-brand-500/60 via-white/10 to-transparent"></div>
+
+            <ol class="space-y-12">
+              <li v-for="(job, i) in experience" :key="job.company"
+                  class="relative grid sm:grid-cols-2 sm:gap-x-12 gap-y-3 pl-12 sm:pl-0">
+
+                <!-- Dot -->
+                <span class="absolute left-4 sm:left-1/2 -translate-x-1/2 top-2 grid place-items-center h-4 w-4 rounded-full bg-gradient-to-br from-brand-400 to-fuchsia-500 ring-4 ring-ink-950"></span>
+
+                <!-- Date column -->
+                <div :class="i % 2 === 0 ? 'sm:text-right sm:pr-12' : 'sm:order-last sm:pl-12'">
+                  <p class="text-xs font-mono uppercase tracking-wider text-brand-300">{{ job.period }}</p>
+                  <h3 class="mt-1 text-lg font-semibold text-white">{{ job.role }}</h3>
+                  <a :href="job.url" target="_blank" rel="noopener"
+                     class="text-sm text-slate-400 hover:text-brand-300 transition inline-flex items-center gap-1">
+                    {{ job.company }}
+                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                </div>
+
+                <!-- Body column -->
+                <div :class="i % 2 === 0 ? 'sm:pl-12' : 'sm:pr-12 sm:text-right sm:order-first'">
+                  <div class="card-soft p-5">
+                    <ul class="space-y-2 text-sm text-slate-300 leading-relaxed list-disc list-inside marker:text-brand-400"
+                        :class="i % 2 === 0 ? '' : 'sm:list-outside sm:[direction:rtl] sm:[unicode-bidi:plaintext] sm:text-right'">
+                      <li v-for="(point, j) in job.points" :key="j" class="sm:[direction:ltr] sm:text-left">
+                        {{ point }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============== Projects ============== -->
+      <section id="projects" class="py-20 lg:py-28 bg-gradient-to-b from-transparent via-ink-900/40 to-transparent">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
+            <div class="max-w-2xl">
+              <h2 class="section-heading">Featured projects</h2>
+              <p class="section-kicker">A curated selection of production systems I designed and shipped. Click any card for details.</p>
+            </div>
+
+            <!-- Filters -->
+            <div class="flex items-center gap-2 self-start sm:self-end">
+              <button v-for="filter in filters" :key="filter.id"
+                      @click="activeFilter = filter.id"
+                      class="text-xs font-medium px-3 py-1.5 rounded-full border transition"
+                      :class="activeFilter === filter.id
+                        ? 'bg-gradient-to-r from-brand-500 to-fuchsia-600 border-transparent text-white shadow-lg shadow-brand-600/20'
+                        : 'border-white/10 bg-white/5 text-slate-300 hover:bg-white/10'">
+                {{ filter.label }}
+                <span class="ml-1 opacity-70">{{ filter.count }}</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Loading -->
+          <div v-if="loadingProjects" class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div v-for="n in 6" :key="n"
+                 class="card-soft h-80 animate-pulse"></div>
+          </div>
+
+          <!-- Empty state -->
+          <div v-else-if="!filteredProjects.length"
+               class="mt-14 card-soft p-12 text-center text-slate-400">
+            No projects match the selected filter.
+          </div>
+
+          <!-- Grid -->
+          <div v-else class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <article v-for="project in filteredProjects" :key="project.slug"
+                     @click="openProject(project)"
+                     class="group cursor-pointer card-soft overflow-hidden hover:border-brand-500/40 hover:-translate-y-1 transition">
+              <div class="relative aspect-[16/10] overflow-hidden bg-ink-800">
+                <img :src="project.cover" :alt="project.title.en"
+                     loading="lazy"
+                     class="h-full w-full object-cover group-hover:scale-105 transition duration-500" />
+                <div class="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/30 to-transparent"></div>
+                <span class="absolute top-3 left-3 text-[11px] font-semibold uppercase tracking-wider px-2 py-1 rounded bg-ink-950/80 text-brand-300 border border-brand-500/20">
+                  {{ project.category }}
+                </span>
+              </div>
+
+              <div class="p-5">
+                <h3 class="text-base font-semibold text-white group-hover:text-brand-300 transition line-clamp-1">
+                  {{ project.title.en }}
+                </h3>
+                <p class="mt-2 text-sm text-slate-400 line-clamp-2 leading-relaxed">
+                  {{ project.desc.en }}
+                </p>
+                <div class="mt-4 flex flex-wrap gap-1.5">
+                  <span v-for="tech in project.technologies.slice(0, 4)" :key="tech"
+                        class="text-[11px] font-medium px-2 py-0.5 rounded bg-white/5 border border-white/10 text-slate-300">
+                    {{ tech }}
+                  </span>
+                  <span v-if="project.technologies.length > 4"
+                        class="text-[11px] font-medium px-2 py-0.5 rounded bg-white/5 border border-white/10 text-slate-400">
+                    +{{ project.technologies.length - 4 }}
+                  </span>
+                </div>
+
+                <div class="mt-4 flex items-center justify-between text-xs">
+                  <span class="text-slate-500">Click to view details</span>
+                  <span class="inline-flex items-center gap-1 text-brand-300 group-hover:translate-x-1 transition">
+                    View
+                    <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============== Other Notable Projects ============== -->
+      <section id="other-projects" class="py-20 lg:py-28">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="max-w-2xl">
+            <h2 class="section-heading">More production work</h2>
+            <p class="section-kicker">Additional platforms I contributed to across various industries.</p>
+          </div>
+
+          <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <a v-for="proj in otherProjects" :key="proj.url"
+               :href="proj.url" target="_blank" rel="noopener"
+               class="group card-soft p-5 hover:border-brand-500/40 hover:-translate-y-1 transition">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-sm font-semibold text-white group-hover:text-brand-300 transition">
+                  {{ proj.name }}
+                </h3>
+                <svg class="h-4 w-4 text-slate-500 group-hover:text-brand-300 transition flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </div>
+              <p class="mt-2 text-xs text-slate-400 leading-relaxed line-clamp-2">{{ proj.desc }}</p>
+              <p class="mt-3 text-[11px] font-mono text-brand-400 truncate">{{ proj.url.replace(/^https?:\/\//, '') }}</p>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============== Contact ============== -->
+      <section id="contact" class="py-20 lg:py-28 bg-gradient-to-b from-transparent via-ink-900/40 to-transparent">
+        <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-ink-900 to-ink-800 p-10 sm:p-14">
+            <div aria-hidden="true" class="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-brand-500/30 blur-3xl"></div>
+            <div aria-hidden="true" class="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-fuchsia-500/20 blur-3xl"></div>
+
+            <div class="relative">
+              <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+                Let's build something <span class="bg-gradient-to-r from-brand-300 to-fuchsia-400 bg-clip-text text-transparent">great</span>.
+              </h2>
+              <p class="mt-4 max-w-2xl text-slate-300">
+                Have a product idea, a hairy backend project, or a team that needs a senior full stack engineer?
+                Drop me a line — I usually reply within a day.
+              </p>
+
+              <div class="mt-8 grid sm:grid-cols-2 gap-4">
+                <a v-for="link in contactLinks" :key="link.href"
+                   :href="link.href" :target="link.external ? '_blank' : '_self'" rel="noopener"
+                   class="group flex items-center gap-4 rounded-xl border border-white/10 bg-ink-950/40 p-4 hover:border-brand-500/40 hover:bg-ink-950/60 transition">
+                  <div class="h-11 w-11 rounded-lg bg-gradient-to-br from-brand-500/20 to-fuchsia-500/20 grid place-items-center text-brand-300 group-hover:text-white transition">
+                    <span v-html="link.icon"></span>
+                  </div>
+                  <div class="min-w-0 flex-1">
+                    <p class="text-xs uppercase tracking-wider text-slate-500">{{ link.label }}</p>
+                    <p class="text-sm font-medium text-white truncate">{{ link.value }}</p>
+                  </div>
+                  <svg class="h-4 w-4 text-slate-500 group-hover:text-brand-300 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============== Footer ============== -->
+    <footer class="border-t border-white/5 py-10">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
+        <p>© {{ year }} Mahmoud Said Haggag.</p>
+        <div class="flex items-center gap-5">
+          <a href="https://linkedin.com/in/mahmoudhaggag641" target="_blank" rel="noopener" class="hover:text-white transition">LinkedIn</a>
+          <a href="https://github.com/mahmoudhaggag641" target="_blank" rel="noopener" class="hover:text-white transition">GitHub</a>
+          <a href="mailto:mahmoudhaggag641@gmail.com" class="hover:text-white transition">Email</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ============== Project modal ============== -->
+    <transition
+      enter-active-class="transition duration-200 ease-out"
+      enter-from-class="opacity-0"
+      enter-to-class="opacity-100"
+      leave-active-class="transition duration-150 ease-in"
+      leave-from-class="opacity-100"
+      leave-to-class="opacity-0">
+      <div v-if="selectedProject"
+           @click.self="closeProject"
+           class="fixed inset-0 z-50 flex items-start justify-center p-0 sm:p-6 bg-ink-950/85 backdrop-blur-md overflow-y-auto">
+        <div class="relative w-full max-w-6xl my-0 sm:my-8 bg-ink-900 sm:rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
+
+          <!-- Sticky compact header -->
+          <div class="sticky top-0 z-20 flex items-center justify-between gap-4 px-5 sm:px-7 py-3.5 border-b border-white/10 bg-ink-900/95 backdrop-blur">
+            <div class="min-w-0 flex items-center gap-3">
+              <div class="h-9 w-9 flex-shrink-0 rounded-lg bg-gradient-to-br from-brand-500 to-fuchsia-600 grid place-items-center text-base shadow-lg shadow-brand-600/30">
+                <span>{{ selectedProject.category === 'web' ? '🌐' : '📱' }}</span>
+              </div>
+              <div class="min-w-0">
+                <span class="block text-[10px] font-semibold uppercase tracking-[0.2em] text-brand-300">
+                  {{ selectedProject.category === 'web' ? 'Web Platform' : 'Mobile App' }}
+                </span>
+                <h3 class="text-sm font-semibold text-white truncate"
+                    :dir="lang === 'ar' ? 'rtl' : 'ltr'">
+                  {{ selectedProject.title[lang] }}
+                </h3>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2 flex-shrink-0">
+              <div class="inline-flex rounded-lg border border-white/10 bg-white/5 p-0.5 text-xs font-medium">
+                <button @click="lang = 'en'"
+                        class="px-2.5 py-1 rounded-md transition"
+                        :class="lang === 'en' ? 'bg-brand-500 text-white' : 'text-slate-400 hover:text-white'">EN</button>
+                <button @click="lang = 'ar'"
+                        class="px-2.5 py-1 rounded-md transition"
+                        :class="lang === 'ar' ? 'bg-brand-500 text-white' : 'text-slate-400 hover:text-white'">عربي</button>
+              </div>
+              <button @click="closeProject"
+                      class="h-9 w-9 grid place-items-center rounded-lg border border-white/10 bg-white/5 text-slate-300 hover:text-white hover:bg-white/10 transition"
+                      aria-label="Close">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Body wrapper (handles RTL) -->
+          <div :dir="lang === 'ar' ? 'rtl' : 'ltr'">
+
+            <!-- Hero cover banner with title overlay -->
+            <div class="relative bg-gradient-to-br from-ink-800 via-ink-900 to-ink-800 border-b border-white/10">
+              <!-- Image fills the full height naturally -->
+              <div class="relative w-full max-h-[520px] overflow-hidden">
+                <img :src="selectedProject.cover"
+                     :alt="selectedProject.title.en"
+                     class="block w-full h-auto max-h-[520px] object-contain mx-auto" />
+                <!-- Soft overlay only at the bottom so the title card sits cleanly -->
+                <div class="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-ink-900 via-ink-900/60 to-transparent"></div>
+              </div>
+
+              <!-- Title block on top of the cover -->
+              <div class="absolute inset-x-0 bottom-0 p-5 sm:p-8">
+                <div class="flex flex-wrap items-end gap-4 justify-between">
+                  <div class="min-w-0">
+                    <span class="inline-block text-[11px] font-semibold uppercase tracking-[0.25em] text-brand-300 mb-2">
+                      {{ selectedProject.category === 'web' ? 'Web Platform' : 'Mobile Application' }}
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white leading-tight drop-shadow-lg">
+                      {{ selectedProject.title[lang] }}
+                    </h2>
+                  </div>
+
+                  <a v-if="selectedProject.link"
+                     :href="selectedProject.link" target="_blank" rel="noopener"
+                     class="group inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-brand-500 to-fuchsia-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-brand-600/30 hover:shadow-brand-600/50 hover:-translate-y-0.5 transition">
+                    {{ lang === 'ar' ? 'زيارة الموقع' : 'Visit live site' }}
+                    <svg class="h-4 w-4 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Content area -->
+            <div class="p-6 sm:p-8 lg:p-10 space-y-10">
+
+              <!-- Lead paragraph -->
+              <p class="text-base sm:text-lg font-medium text-slate-200 leading-relaxed first-letter:text-2xl first-letter:font-bold first-letter:text-brand-300">
+                {{ selectedProject.desc[lang] }}
+              </p>
+
+              <!-- Tech stack -->
+              <div>
+                <div class="flex items-center gap-3 mb-4">
+                  <span class="h-px flex-1 bg-gradient-to-r from-brand-500/40 to-transparent"></span>
+                  <h4 class="text-[11px] font-semibold uppercase tracking-[0.25em] text-brand-300 whitespace-nowrap">
+                    {{ lang === 'ar' ? 'التقنيات المستخدمة' : 'Built with' }}
+                  </h4>
+                  <span class="h-px flex-1 bg-gradient-to-l from-brand-500/40 to-transparent"></span>
+                </div>
+                <div class="flex flex-wrap gap-2 justify-center">
+                  <span v-for="tech in selectedProject.technologies" :key="tech"
+                        class="text-xs font-medium px-3 py-1.5 rounded-md bg-brand-500/10 border border-brand-500/30 text-brand-200 hover:bg-brand-500/20 hover:border-brand-500/50 transition">
+                    {{ tech }}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Detailed -->
+              <div class="prose-block border-t border-white/5 pt-10">
+                <div class="flex items-center gap-3 mb-5">
+                  <span class="inline-block w-1 h-6 rounded-full bg-gradient-to-b from-brand-400 to-fuchsia-500"></span>
+                  <h4 class="text-base font-bold text-white">
+                    {{ lang === 'ar' ? 'تفاصيل المشروع' : 'Project details' }}
+                  </h4>
+                </div>
+                <p class="text-sm sm:text-[15px] text-slate-300 leading-loose whitespace-pre-line">
+                  {{ selectedProject.detail[lang] }}
+                </p>
+              </div>
+
+              <!-- Gallery -->
+              <div v-if="selectedProject.images && selectedProject.images.length" class="border-t border-white/5 pt-10 space-y-5">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <span class="inline-block w-1 h-6 rounded-full bg-gradient-to-b from-brand-400 to-fuchsia-500"></span>
+                    <h4 class="text-base font-bold text-white">
+                      {{ lang === 'ar' ? 'صور من المشروع' : 'Screenshots' }}
+                    </h4>
+                  </div>
+                  <span class="text-xs font-mono text-slate-500">
+                    {{ String(selectedProject.images.length).padStart(2, '0') }} {{ lang === 'ar' ? 'صورة' : 'images' }}
+                  </span>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+                  <button v-for="(img, idx) in selectedProject.images" :key="img"
+                          @click="openLightbox(idx)"
+                          class="group relative overflow-hidden rounded-xl border border-white/10 bg-ink-800 aspect-[4/3] hover:border-brand-500/50 transition">
+                    <img :src="img" loading="lazy" alt=""
+                         class="h-full w-full object-cover group-hover:scale-110 transition duration-700 ease-out" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-ink-950/80 via-ink-950/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                    <div class="absolute inset-0 grid place-items-center opacity-0 group-hover:opacity-100 transition duration-300">
+                      <div class="h-11 w-11 rounded-full bg-white/15 backdrop-blur-md ring-1 ring-white/20 grid place-items-center">
+                        <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m-3-3h6" />
+                        </svg>
+                      </div>
+                    </div>
+                    <span class="absolute top-2 left-2 text-[10px] font-mono px-1.5 py-0.5 rounded bg-ink-950/70 text-slate-300 backdrop-blur opacity-0 group-hover:opacity-100 transition">
+                      {{ String(idx + 1).padStart(2, '0') }}/{{ String(selectedProject.images.length).padStart(2, '0') }}
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
+
+    <!-- ============== Lightbox ============== -->
+    <transition
+      enter-active-class="transition duration-200 ease-out"
+      enter-from-class="opacity-0"
+      enter-to-class="opacity-100"
+      leave-active-class="transition duration-150 ease-in"
+      leave-from-class="opacity-100"
+      leave-to-class="opacity-0">
+      <div v-if="lightboxIndex !== null"
+           @click.self="lightboxIndex = null"
+           class="fixed inset-0 z-[60] grid place-items-center bg-ink-950/95 p-4 sm:p-8">
+
+        <button @click="lightboxIndex = null"
+                class="absolute top-4 right-4 h-10 w-10 grid place-items-center rounded-lg border border-white/10 bg-white/5 text-white hover:bg-white/10 transition"
+                aria-label="Close lightbox">
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <button v-if="selectedProject && selectedProject.images.length > 1"
+                @click="lightboxPrev"
+                class="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 h-10 w-10 grid place-items-center rounded-full border border-white/10 bg-white/5 text-white hover:bg-white/10 transition"
+                aria-label="Previous image">
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <img v-if="selectedProject" :src="selectedProject.images[lightboxIndex]" alt=""
+             class="max-h-[90vh] max-w-[92vw] rounded-lg shadow-2xl object-contain" />
+
+        <button v-if="selectedProject && selectedProject.images.length > 1"
+                @click="lightboxNext"
+                class="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 h-10 w-10 grid place-items-center rounded-full border border-white/10 bg-white/5 text-white hover:bg-white/10 transition"
+                aria-label="Next image">
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </transition>
+
+    <!-- Back to top -->
+    <transition
+      enter-active-class="transition duration-200"
+      enter-from-class="opacity-0 translate-y-2"
+      enter-to-class="opacity-100 translate-y-0"
+      leave-active-class="transition duration-150"
+      leave-from-class="opacity-100"
+      leave-to-class="opacity-0 translate-y-2">
+      <button v-if="scrolled"
+              @click="scrollToTop"
+              class="fixed bottom-6 right-6 z-30 h-11 w-11 grid place-items-center rounded-full bg-gradient-to-br from-brand-500 to-fuchsia-600 text-white shadow-lg shadow-brand-600/30 hover:-translate-y-0.5 transition"
+              aria-label="Back to top">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+        </svg>
+      </button>
+    </transition>
+
+  </div>
+
+  <script src="assets/js/app.js?v=1"></script>
+</body>
+</html>
