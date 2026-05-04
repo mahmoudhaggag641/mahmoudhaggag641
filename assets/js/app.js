@@ -527,10 +527,222 @@ createApp({
     ];
 
     // ---------------------------------------------------------------
+    // Featured projects — inlined here so projects.json can stay in
+    // .gitignore. Edit this array directly to add / remove a project.
+    // Each project has: slug, sortOrder, category (web|mobile), cover,
+    // technologies[], link, images[], and bilingual title/desc/detail.
+    // ---------------------------------------------------------------
+    const projectsData = [
+      {
+        slug: "hellocallers-platform",
+        sortOrder: 1,
+        category: "web",
+        cover: "assets/img/projects/hellocallers/cover.png",
+        technologies: ["Laravel", "Vue.js", "MySQL", "Firebase", "Sphinx Search", "Paymob", "Stripe"],
+        link: "https://hellocallers.com",
+        images: [
+          "assets/img/projects/hellocallers/img-1.png",
+          "assets/img/projects/hellocallers/img-2.png",
+          "assets/img/projects/hellocallers/img-3.png",
+          "assets/img/projects/hellocallers/img-4.png",
+          "assets/img/projects/hellocallers/img-5.png",
+          "assets/img/projects/hellocallers/img-6.png",
+          "assets/img/projects/hellocallers/img-7.png",
+          "assets/img/projects/hellocallers/img-8.png",
+        ],
+        title: { ar: "منصة هالو؟ من المتصل", en: "Hello? Caller ID Platform" },
+        desc:  { ar: "منصة ذكية للبحث عن الأرقام والأسماء والإيميلات مع تعريف المتصل وحماية الخصوصية",
+                 en: "Smart platform for searching phone numbers, names, and emails with caller ID and privacy protection" },
+        detail: {
+          ar: "طورنا منصة هالو كولرز (HelloCallers) — منصة ويب متكاملة لتعريف هوية المتصل وحماية المستخدمين من المكالمات المزعجة والاحتيالية. تتيح المنصة البحث المتقدم بواسطة رقم الهاتف أو الاسم أو البريد الإلكتروني عبر محرك بحث Sphinx Search Engine للبحث اللحظي في قاعدة بيانات ضخمة. تشمل المنصة نظام تقييم وتصنيف الأرقام من قبل المستخدمين، صفحات تفصيلية لكل رقم مع تاريخ التقارير والتعليقات، ولوحة تحكم شاملة لإدارة البيانات والمستخدمين. تم دمج بوابات دفع متعددة تشمل Paymob وStripe لدعم الاشتراكات المدفوعة، مع نظام مصادقة آمن وتجربة مستخدم سلسة تدعم العربية والإنجليزية. المنصة مبنية بـ Laravel كـbackend و Vue.js كـfrontend مع قاعدة بيانات MySQL وFirebase للتحديثات اللحظية.",
+          en: "We developed HelloCallers — a comprehensive web platform for caller identification and protecting users from spam and fraudulent calls. The platform enables advanced search by phone number, name, or email through Sphinx Search Engine for instant searching across a massive database. Features include a user-driven number rating and tagging system, detailed pages for each number with report history and comments, and a comprehensive admin dashboard for data and user management. Multiple payment gateways were integrated including Paymob and Stripe to support paid subscriptions, along with secure authentication and a smooth bilingual (Arabic/English) user experience. Built with Laravel backend, Vue.js frontend, MySQL database, and Firebase for real-time updates.",
+        },
+      },
+      {
+        slug: "hellocallers-mobile-app",
+        sortOrder: 2,
+        category: "mobile",
+        cover: "assets/img/projects/hellocallers-mobile/cover.png",
+        technologies: ["Android (Kotlin)", "iOS (Swift)", "Firebase Realtime DB", "Google Pay", "Apple Pay", "Push Notifications"],
+        link: "https://play.google.com/store/apps/details?id=com.callerid.wie",
+        images: [
+          "assets/img/projects/hellocallers-mobile/img-1.jpg",
+          "assets/img/projects/hellocallers-mobile/img-2.jpg",
+          "assets/img/projects/hellocallers-mobile/img-3.jpg",
+          "assets/img/projects/hellocallers-mobile/img-4.jpg",
+          "assets/img/projects/hellocallers-mobile/img-5.jpg",
+        ],
+        title: { ar: "تطبيق هالو؟ من المتصل", en: "Hello? Caller ID App" },
+        desc:  { ar: "تطبيق كاشف هوية المتصل والبحث بالاسم والإيميل بأكثر من 500,000 تحميل وتقييم 4.3 نجوم",
+                 en: "Caller ID app with search by name and email — 500,000+ downloads and 4.3-star rating" },
+        detail: {
+          ar: "صممنا وطورنا تطبيق «هالو؟ من المتصل» (Hello? Caller ID) — تطبيق ذكي لتعريف هوية المتصل وحماية الخصوصية، متوفر على Android و iOS. يتيح التطبيق البحث بواسطة رقم الهاتف أو الاسم أو البريد الإلكتروني لمعرفة هوية المتصل فوراً قبل الرد، مع حماية متقدمة من المكالمات المزعجة والاحتيالية. يشمل التطبيق نظام تعريف لحظي للأرقام المجهولة، قاعدة بيانات محدّثة باستمرار من تقييمات المستخدمين، بحث عكسي عن الأرقام والأسماء والإيميلات، وإعدادات خصوصية متقدمة تمنح المستخدم تحكماً كاملاً في بياناته. حقق التطبيق أكثر من 500,000 تحميل على Google Play مع تقييم 4.3 نجوم وأكثر من 2,230 مراجعة. تم بناؤه بتقنيات native مع Firebase Realtime Database للتحديثات اللحظية ودعم Google Pay و Apple Pay لعمليات الدفع.",
+          en: "We designed and developed the «Hello? Caller ID» app — a smart caller identification and privacy protection app available on Android and iOS. The app enables search by phone number, name, or email to instantly identify callers before answering, with advanced protection from spam and fraudulent calls. Features include real-time unknown number identification, a continuously updated database from user ratings, reverse lookup for numbers, names, and emails, and advanced privacy settings giving users full control over their data. The app achieved over 500,000 downloads on Google Play with a 4.3-star rating and 2,230+ reviews. Built with native technologies, Firebase Realtime Database for instant updates, and Google Pay & Apple Pay support for payments.",
+        },
+      },
+      {
+        slug: "vlaby-virtual-labs",
+        sortOrder: 3,
+        category: "web",
+        cover: "assets/img/projects/vlaby/cover.png",
+        technologies: ["Laravel", "Vue.js", "MySQL", "WebGL", "LMS Integration", "REST API", "Payment Gateway", "PayPal", "Fawry"],
+        link: "https://vlaby.com",
+        images: [
+          "assets/img/projects/vlaby/img-1.png",
+          "assets/img/projects/vlaby/img-2.png",
+          "assets/img/projects/vlaby/img-3.png",
+          "assets/img/projects/vlaby/img-4.png",
+          "assets/img/projects/vlaby/img-5.png",
+          "assets/img/projects/vlaby/img-6.png",
+          "assets/img/projects/vlaby/img-7.png",
+        ],
+        title: { ar: "فلابي - معامل افتراضية", en: "Vlaby - Virtual Labs" },
+        desc:  { ar: "منصة معامل علمية افتراضية تفاعلية بأكثر من 350 تجربة تدعم 15+ منهج دراسي و5 لغات",
+                 en: "Interactive virtual science lab platform with 350+ experiments supporting 15+ curricula and 5 languages" },
+        detail: {
+          ar: "طورنا منصة فلابي (Vlaby) — منصة معامل افتراضية متكاملة تمكّن الطلاب من إجراء تجارب علمية تفاعلية في الكيمياء والفيزياء والأحياء والعلوم العامة عبر الإنترنت دون الحاجة لمعدات حقيقية أو التعرض لمخاطر. تضم المنصة أكثر من 350 تجربة متوافقة مع أكثر من 15 منهجاً دراسياً عربياً ودولياً (مصري، سعودي، بريطاني، أمريكي، إماراتي، كويتي، قطري، وغيرها). تدعم المنصة 5 لغات (العربية، الإنجليزية، الفرنسية، الألمانية، الإندونيسية) وتتضمن نظام Gamification بالنجوم والشارات والكؤوس لتحفيز الطلاب. تشمل المنصة لوحة تحكم للمعلمين لمتابعة تقدم الطلاب، تكامل مع أنظمة إدارة التعلم (LMS)، وضع الألعاب لتقييم المهارات، ودعم العمل أونلاين وأوفلاين. تتعاون المنصة مع أكثر من 20 مدرسة في مصر والسعودية وشركاء استراتيجيين مثل Classera.",
+          en: "We developed Vlaby — a comprehensive virtual laboratory platform that enables students to conduct interactive scientific experiments in chemistry, physics, biology, and general sciences online without physical equipment or safety risks. The platform hosts over 350 experiments aligned with 15+ Arab and international curricula (Egyptian, Saudi, British, American, Emirati, Kuwaiti, Qatari, and more). It supports 5 languages (Arabic, English, French, German, Indonesian) and features a gamification system with stars, badges, and trophies to motivate students. The platform includes a teacher dashboard for tracking student progress, LMS integration, a game mode for skill assessment, and online/offline support. Vlaby partners with 20+ schools across Egypt and Saudi Arabia and strategic partners including Classera.",
+        },
+      },
+      {
+        slug: "ilearn-education-erp",
+        sortOrder: 4,
+        category: "web",
+        cover: "assets/img/projects/ilearn/cover.png",
+        technologies: ["Laravel", "Vue.js", "MySQL", "Node JS", "REST API", "Zoom SDK", "Gitsi Meet", "SMS Gateway", "Push Notifications", "GPS Tracking"],
+        link: "https://ilearn.today",
+        images: [
+          "assets/img/projects/ilearn/img-1.png",
+          "assets/img/projects/ilearn/img-2.png",
+          "assets/img/projects/ilearn/img-3.png",
+          "assets/img/projects/ilearn/img-4.png",
+          "assets/img/projects/ilearn/img-5.png",
+          "assets/img/projects/ilearn/img-6.png",
+        ],
+        title: { ar: "ILearn - نظام إدارة المؤسسات التعليمية", en: "ILearn - Education Management System" },
+        desc:  { ar: "نظام ERP سحابي متكامل لإدارة جميع عمليات المؤسسات التعليمية من القبول حتى التخرج",
+                 en: "Cloud-based ERP system for managing all educational institution operations from admission to graduation" },
+        detail: {
+          ar: "طورنا نظام ILearn — نظام ERP سحابي شامل لإدارة المؤسسات التعليمية يغطي كامل دورة العمل الأكاديمية والإدارية. يشمل النظام عدة وحدات متكاملة: الوحدة الأكاديمية (الكورسات، الجداول الزمنية، دفتر الدرجات، الامتحانات الإلكترونية، الحضور والغياب، تقارير التقدم، والشهادات)، الوحدة المالية (إدارة الرسوم والمدفوعات أونلاين، الفواتير، المحاسبة، الحسابات اليومية، والمشتريات والمخزون)، وحدة الموارد البشرية (بيانات الموظفين والمعلمين، الإجازات، جداول العمل، الحضور، وإدارة الرواتب)، وحدة النقل (معلومات الحافلات، المسارات، تتبع GPS المباشر، وإدارة الوقود)، ووحدة التواصل المدرسي (الرسائل، الأخبار، تكامل SMS والبريد الإلكتروني، إدارة المهام، تكامل Zoom، إدارة البوابات، الاستبيانات، وإدارة المستندات). يوفر النظام بوابات مخصصة للطلاب وأولياء الأمور والمعلمين والإدارة، مع تطبيقات جوال ولوحات تحكم تحليلية قابلة للتخصيص.",
+          en: "We developed ILearn — a comprehensive cloud-based ERP system for educational institutions covering the entire academic and administrative workflow. The system includes multiple integrated modules: Academic Module (courses, timetables, gradebooks, online examinations, attendance, progress reports, and certificates), Finance Module (fee management with online payments, invoicing, accounting, daily transactions, and purchasing & inventory), HR Module (employee and teacher records, leave management, work schedules, attendance, and payroll), Transportation Module (bus information, routes, live GPS tracking, and fuel management), and School Connect Module (messaging, news, SMS & email integration, task management, Zoom integration, gate management, surveys, and document management). The system provides dedicated portals for students, parents, teachers, and administrators, with mobile apps and customizable analytics dashboards.",
+        },
+      },
+      {
+        slug: "research-dimensions",
+        sortOrder: 5,
+        category: "web",
+        cover: "assets/img/projects/rd/cover.jpg",
+        technologies: ["AI", "Machine Learning", "Data Visualization", "Laravel", "Vue.js", "MySQL", "Power BI"],
+        link: "https://rd.com.sa",
+        images: [
+          "assets/img/projects/rd/competitive-analysis.jpg",
+          "assets/img/projects/rd/supply-demand-prediction.jpg",
+        ],
+        title: { ar: "أبعاد — منصة أبحاث السوق", en: "Research Dimensions — Market Research Platform" },
+        desc:  { ar: "أول منصة تقنية سعودية متخصصة في الدراسات والأبحاث المتقدمة باستخدام الذكاء الاصطناعي وتعلّم الآلة، لتوفير تحليلات السوق والمنافسين والأسعار عبر أكثر من 24 قطاعاً.",
+                 en: "The first Saudi technical platform specialised in advanced market studies and research using AI and machine learning — delivering market, competitor, and pricing intelligence across 24+ industries." },
+        detail: {
+          ar: "منصة SaaS سعودية تدمج البيانات من مصادر متعددة (استطلاعات، بيانات عملاء، مواقع، سوشيال ميديا) وتبنيها في مستودع سحابي موحّد. تقدّم لوحات تحليل جاهزة لأبحاث السوق والتحليل التنافسي والتنبّؤ بالعرض والطلب، مع أدوات جمع وتنظيف بيانات آلية، ونماذج تعلّم آلة لاستخراج الرؤى، وبنية تسعير مرنة بخطط اشتراك شهرية وسنوية.",
+          en: "A Saudi SaaS platform that integrates data from surveys, customer records, websites, and social channels into a unified cloud data warehouse. It ships ready-made dashboards for market research, competitive analysis, and supply/demand forecasting, backed by automated data collection & cleansing pipelines, machine-learning insight models, and flexible monthly/yearly subscription plans.",
+        },
+      },
+      {
+        slug: "return-rewards",
+        sortOrder: 6,
+        category: "mobile",
+        cover: "assets/img/projects/return-rewards/cover.png",
+        technologies: ["Ionic", "Vue.js", "Capacitor", "REST API", "Laravel", "MySQL"],
+        link: "https://play.google.com/store/apps/details?id=com.rd.returnrewards",
+        images: [
+          "assets/img/projects/return-rewards/img-1.png",
+          "assets/img/projects/return-rewards/img-2.png",
+          "assets/img/projects/return-rewards/img-3.png",
+          "assets/img/projects/return-rewards/img-4.png",
+          "assets/img/projects/return-rewards/img-5.png",
+          "assets/img/projects/return-rewards/img-6.png",
+          "assets/img/projects/return-rewards/img-7.png",
+          "assets/img/projects/return-rewards/img-8.png",
+        ],
+        title: { ar: "تطبيق Return Rewards — المكافآت والاسترداد", en: "Return Rewards — Loyalty & Cashback App" },
+        desc:  { ar: "تطبيق جوال للولاء والمكافآت يسمح للمستخدمين برفع فواتير مشترياتهم للحصول على نقاط واستبدالها بعروض وهدايا من المتاجر الشريكة.",
+                 en: "Loyalty and cashback mobile app that lets users upload their purchase receipts to earn reward points and redeem them for offers and gifts from partner retailers." },
+        detail: {
+          ar: "صممنا وطورنا تطبيق «Return Rewards» — تطبيق ولاء ومكافآت متوفر على Android و iOS مبني بتقنية Ionic مع Vue.JS و Capacitor كإطار عمل هجين. يمكّن التطبيق المستخدمين من تصوير ورفع فواتير المشتريات والفواتير الشهرية بسهولة وأمان ليحصلوا على نقاط مكافآت لكل عملية رفع يتم التحقق منها. تشمل مميزات التطبيق: نظام مهام وتحديات لكسب نقاط إضافية، شبكة واسعة من العلامات التجارية الشريكة لاستبدال النقاط، محفظة نقاط شخصية مع متابعة التقدّم، وسوق مكافآت يضم بطاقات هدايا ومنتجات وتجارب حصرية، مع تشفير للبيانات وتجربة استخدام بسيطة تدعم العربية والإنجليزية.",
+          en: "We designed and developed the «Return Rewards» app — a loyalty and cashback mobile app available on Android and iOS, built with Ionic + Vue.JS + Capacitor as a hybrid framework. The app enables users to capture and securely submit purchase receipts and monthly bills, earning reward points for every verified upload. Features include a missions & challenges system for bonus points, a wide network of partner retailers for point redemption, a personal points wallet with progress tracking, and a rewards marketplace featuring gift cards, merchandise, and exclusive experiences — all backed by data encryption and a bilingual (Arabic/English) experience.",
+        },
+      },
+      {
+        slug: "tours-booking-platform",
+        sortOrder: 7,
+        category: "web",
+        cover: "assets/img/projects/tours-booking/cover.jpg",
+        technologies: ["Laravel", "Vue.js", "MySQL", "Payment Gateway", "REST API", "Multi-currency", "TripAdvisor Integration"],
+        link: "http://sharmexcursions-experts.com",
+        images: [
+          "assets/img/projects/tours-booking/img-1.jpg",
+          "assets/img/projects/tours-booking/img-2.jpg",
+          "assets/img/projects/tours-booking/img-3.jpg",
+          "assets/img/projects/tours-booking/img-4.jpg",
+          "assets/img/projects/tours-booking/img-5.jpg",
+        ],
+        title: { ar: "منصة حجز الرحلات السياحية — Sharm Excursions Experts", en: "Tours Booking Platform — Sharm Excursions Experts" },
+        desc:  { ar: "منصة حجز رحلات سياحية متكاملة تشمل جولات المغامرات ورحلات القاهرة والأقصر وعروض البدو وخدمات النقل من وإلى المطار، مع سلة حجز ودفع آمن متعدد العملات.",
+                 en: "A comprehensive tours booking platform covering adventure tours, Cairo/Luxor excursions, Bedouin shows, and airport transfers — with a booking cart and secure multi-currency payment." },
+        detail: {
+          ar: "طورنا منصة «Sharm Excursions Experts» — منصة حجز رحلات سياحية متكاملة، تغطي مختلف أنواع الرحلات من مغامرات صحراوية وغوص ورحلات ثقافية إلى القاهرة والأقصر وبتراء، وعروض عشاء بدوية، وخدمات النقل من وإلى مطار شرم الشيخ. تشمل المنصة كتالوج رحلات قابل للتصفية حسب النوع والمدة والسعر، سلة حجز بنظام دفع عربون (10%)، بوابة دفع آمنة متعددة العملات (USD / GBP / EGP)، إصدار vouchers إلكترونية تلقائياً بعد تأكيد الحجز، لوحة تحكم إدارية لإدارة الرحلات والباقات والأسعار والحجوزات، سياسة تعديل مرنة للحجوزات، وقسم مراجعات العملاء مع تكامل TripAdvisor. مبنية بـ Laravel للـ backend و Vue.js للـ frontend و MySQL كقاعدة بيانات.",
+          en: "We developed 'Sharm Excursions Experts' — a full tour booking platform, covering a wide range of experiences from desert adventures, diving, and cultural day trips to Cairo, Luxor, and Petra, through Bedouin dinner shows and airport transfers from/to Sharm El Sheikh airport. The platform features a filterable tours catalog (by type, duration, price), a booking cart with deposit-based payment (10%), a secure multi-currency payment gateway (USD/GBP/EGP), automatic electronic voucher issuance after confirmation, an admin dashboard for managing tours, packages, pricing and bookings, flexible amendment policies, and a customer reviews section with TripAdvisor integration. Built with Laravel backend, Vue.js frontend, and MySQL database.",
+        },
+      },
+      {
+        slug: "almusaed-logistics-platform",
+        sortOrder: 8,
+        category: "web",
+        cover: "assets/img/projects/almusaed/cover.png",
+        technologies: ["Laravel", "Vue.js", "MySQL", "Payment Gateway", "PayPal"],
+        link: "https://almusaed.net",
+        images: [
+          "assets/img/projects/almusaed/img-1.png",
+          "assets/img/projects/almusaed/img-2.png",
+          "assets/img/projects/almusaed/img-3.png",
+          "assets/img/projects/almusaed/img-4.jpg",
+          "assets/img/projects/almusaed/img-5.jpg",
+          "assets/img/projects/almusaed/img-6.jpg",
+          "assets/img/projects/almusaed/img-7.jpg",
+          "assets/img/projects/almusaed/img-8.jpg",
+          "assets/img/projects/almusaed/img-9.jpg",
+          "assets/img/projects/almusaed/img-10.jpg",
+        ],
+        title: { ar: "المساعد — منصة الخدمات اللوجستية", en: "Almusaed — Logistics Services Platform" },
+        desc:  { ar: "منصة متعددة الأطراف تربط مقدّمي الخدمات اللوجستية (شحن، تخزين، خدمات عامة) بطالبي الخدمة عبر الويب والموبايل، مع نظام عروض وتفاوض ودفع ومحفظة وتقييمات.",
+                 en: "A two-sided marketplace connecting logistics service providers (shipping, storage, general services) with customers through web and mobile — with bidding, negotiation chat, payments, in-app wallet, and ratings." },
+        detail: {
+          ar: "طورنا منصة «المساعد» (Almusaed) — منصة سعودية متعددة الأطراف للخدمات اللوجستية تربط مقدمي الخدمة بطالبيها عبر موقع ويب وتطبيق موبايل. يدعم النظام تسجيلاً متدرّجاً لمقدمي الخدمة (أفراد أو شركات) مع تفعيل الرقم برسالة SMS، وتصنيف خدماتهم ضمن ثلاثة محاور رئيسية: (١) الشحن الأمامي بفروعه الثلاثة — شحن ثقيل (بري/بحري/جوي) مع تفاصيل مركباته (قطارات، عربات نقل كبيرة، نقل عادية، نصف نقل، ربع نقل، ...) وخدمات البريد وخدمات التوصيل؛ ولكل مركبة ملف كامل يضم رقم وصورة الرخصة، صور المركبة من كل الاتجاهات، صور لوحة الأرقام من الأمام والخلف، الماركة والموديل، والمميزات (تبريد، مقطورة، ...). (٢) التخزين بمواصفات مفصّلة (المساحة، العنوان، مكافحة الحرائق، التبريد، التحميل والتفريغ). (٣) الخدمات العامة (التحميل والمناولة، نقل الأثاث، الخدمات الإلكترونية، تأجير المعدات، ...). آلية طلب الخدمة تدعم مسارين: تصفّح العروض والتفاوض المباشر عبر شات ثم إرسال طلب خاص، أو نشر طلب عام يُشعَر به كل مقدمي الخدمات في الفئة ليقدّموا عروضهم. يشمل النظام بوابات دفع متعددة، محفظة إلكترونية، نظام تقييم بعقوبات نقاط سلبية عند الإلغاء غير المبرّر مع تدخّل إداري عند الحاجة، إشعارات فورية عبر الويب والموبايل، ولوحة تحكم إدارية قابلة للتوسع تتيح إضافة أنواع مركبات وفئات جديدة بمميزاتها وأيقوناتها، بالإضافة إلى واجهات تعرض الأكثر طلباً والأعلى تقييماً خلال الشهر.",
+          en: "We developed 'Almusaed' — a Saudi multi-sided logistics marketplace that connects service providers with customers through a web platform and mobile app. The system supports phased provider onboarding (individuals or companies) with SMS phone verification, and organises services across three pillars: (1) Forward shipping with three branches — heavy shipping (land/sea/air) with detailed vehicle subtypes (trains, large trucks, regular trucks, half-trucks, quarter-trucks, …), mail services, and delivery services — where each vehicle carries a full profile (license number & image, vehicle photos from all angles, front/back plate photos, make and model, and feature flags such as cooling or trailer support). (2) Storage with detailed specs (area, address, fire suppression, cooling, loading & unloading). (3) General services (loading & handling, furniture moving, online services, equipment rental, …). The order flow supports two paths: browse offers and negotiate via direct chat then send a targeted request, or post a public request that notifies every provider in the matching category to submit their bids. The platform includes multiple payment gateways, an in-app wallet, a reputation system with penalty points for unjustified cancellations and admin mediation when needed, real-time notifications across web and mobile, an extensible admin dashboard that allows adding new vehicle types and categories with their icons and features, plus monthly highlights of the most-requested and top-rated providers.",
+        },
+      },
+      {
+        slug: "imc-mosquito-control",
+        sortOrder: 9,
+        category: "mobile",
+        cover: "assets/img/projects/imc/cover.png",
+        technologies: ["Laravel", "Vue.js", "MySQL", "Google Maps API", "Flutter", "REST API", "GPS"],
+        link: "https://imcjed.com",
+        images: [],
+        title: { ar: "IMC — نظام معلومات مشاريع المكافحة المتكاملة للبعوض", en: "IMC — Integrated Mosquito Control Information System" },
+        desc:  { ar: "نظام معلومات متكامل لأمانة جدة لإدارة مشاريع المكافحة المتكاملة للبعوض داخل وخارج المنازل، يضم لوحة تحكم ويب مدعومة بنظم المعلومات الجغرافية وتطبيق موبايل Native للعمل الميداني.",
+                 en: "A comprehensive information system for Amanat Jeddah (Jeddah Municipality) to manage integrated indoor/outdoor mosquito control projects — combining a GIS-powered web admin dashboard with a native mobile app for field teams." },
+        detail: {
+          ar: "طوّرنا لصالح أمانة جدة نظام IMC — نظام معلومات متكامل لإدارة ومتابعة وتقييم مشاريع المكافحة المتكاملة للبعوض داخل وخارج المنازل عبر القطاعات الأوسط والجنوبي والشمالي بمدينة جدة، بهدف السيطرة على بؤر حمى الضنك. يتكوّن النظام من ثلاث طبقات متكاملة: (١) قاعدة بيانات MySQL مركزية تستوعب كل بيانات المشروع الأساسية والتشغيلية. (٢) لوحة تحكم ويب مبنية بـ Laravel + Vue.js مع تكامل Google Maps لنظم المعلومات الجغرافية — تتيح تحديد مناطق عمل الفرق، تصدير التقارير، وعرض لوحة معلومات نقطية على الخريطة. (٣) تطبيق موبايل Flutter (Android/iOS) للعمل الميداني يستخدم GPS لتحديد المواقع، يحتوي كل النماذج الميدانية، ويوثّق الإجراءات بصور من الكاميرا مع تزامن آني مع السيرفر. يدعم النظام واجهة ثنائية اللغة (عربي/إنجليزي)، صلاحيات متعددة المستويات لثمانية أدوار (مدير المشروع، نائبه، استشاري، أخصائي حيوي، وحدة GIS، مدير العمليات، أخصائي مكافحة، رئيس فرقة)، وهرم جغرافي من خمسة مستويات (المملكة → المنطقة → المدينة → البلدية → الحي → المربع). يشمل النظام إدارة المصائد بالباركود، إدارة المهام (تركيب/فك المصائد، زيارة موقع، فحص)، أنواع الأعمال (عام، مصائد، فحص)، تصنيفات المواقع (مسجد، فيلا، شقة، مبنى تحت الإنشاء، مدرسة، متنزه، ...)، وأنواع المعدات (ULV، الضباب، الاسطوانة، سيارات الرش الفراغي، الرذاذ). كذلك تقارير عمليات ميدانية وتحليلية شاملة (خطة الزيارات اليومية، الوحدات الممسوحة، تفاصيل المكافحة، الزيارات غير الناجحة، نتائج البؤر، نسب الإنجاز لكل فرد/مجموعة/حي/بلدية/قطاع) قابلة للتصدير كـ Excel والعرض على خرائط جغرافية تظهر لكل مربع اسم المالك، رقم الهاتف، وجود بعوض أو بؤر، وعدد الإصابات.",
+          en: "We developed IMC for Amanat Jeddah (Jeddah Municipality) — a comprehensive information system to manage, track, and evaluate Integrated Mosquito Control projects (indoor & outdoor) across Jeddah's central, southern, and northern sectors, targeting dengue-fever outbreak zones. The system is built in three layers: (1) A central MySQL database holding all core and operational data. (2) A Laravel + Vue.js web admin dashboard integrated with Google Maps for the GIS layer — used to assign field zones, export reports, and render a point-data dashboard over the map. (3) A flutter mobile app (Android/iOS) for field teams that uses GPS for positioning, carries every field form, and documents actions with camera photos synced in real time with the backend. The system ships with a bilingual UI (Arabic/English), multi-level permissions across eight roles (Project Manager, Deputy, Consultant, Biological Specialist, GIS Unit, Operations Manager, Control Specialist, Team Leader), and a 5-level geographic hierarchy (Kingdom → Region → City → Municipality → Neighborhood → Block). It includes barcode-based trap management, task management (install/remove traps, site visits, inspections), work types (general, trap, inspection), location types (mosque, villa, apartment, under-construction, school, park, …), and equipment types (ULV, fog, cylinder, space-spray vehicles, mist). Comprehensive field and analytical reporting covers daily visit plans, surveyed unit counts, control details, unsuccessful-visit reports (no one on site / no mahram / owner refusal), outbreak outcomes, and completion-rate reports at individual/team/sub-neighborhood/municipality/sector levels — all exportable to Excel and visualized on geographic maps showing per-block data (owner name, phone, mosquito/focus presence, case counts).",
+        },
+      },
+    ];
+
+    // ---------------------------------------------------------------
     // Reactive state
     // ---------------------------------------------------------------
-    const projects = ref([]);
-    const loadingProjects = ref(true);
+    const projects = ref(projectsData);
+    const loadingProjects = ref(false);
     const activeFilter = ref('all');
     const selectedProject = ref(null);
     const lightboxIndex = ref(null);
@@ -589,27 +801,6 @@ createApp({
     // ---------------------------------------------------------------
     // Methods
     // ---------------------------------------------------------------
-    async function loadProjects() {
-      try {
-        const res = await fetch('projects.json', { cache: 'no-cache' });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        // Strip the leading slash so the site works under any base path
-        // (e.g., GitHub Pages project pages serve from a sub-directory).
-        const fix = (p) => (typeof p === 'string' && p.startsWith('/')) ? p.slice(1) : p;
-        projects.value = data.map(p => ({
-          ...p,
-          cover: fix(p.cover),
-          images: Array.isArray(p.images) ? p.images.map(fix) : [],
-        }));
-      } catch (err) {
-        console.error('Failed to load projects:', err);
-        projects.value = [];
-      } finally {
-        loadingProjects.value = false;
-      }
-    }
-
     function openProject(project) {
       selectedProject.value = project;
       document.body.classList.add('modal-open');
@@ -747,7 +938,6 @@ createApp({
     // Lifecycle
     // ---------------------------------------------------------------
     onMounted(() => {
-      loadProjects();
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('keydown', onKeydown);
       onScroll();
