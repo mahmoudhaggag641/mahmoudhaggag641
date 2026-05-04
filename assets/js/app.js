@@ -12,18 +12,181 @@ createApp({
     // ---------------------------------------------------------------
     // Static content
     // ---------------------------------------------------------------
-    const navLinks = [
-      { id: 'home',       label: 'Home' },
-      { id: 'about',      label: 'About' },
-      { id: 'skills',     label: 'Skills' },
-      { id: 'experience', label: 'Experience' },
-      { id: 'projects',   label: 'Projects' },
-      { id: 'contact',    label: 'Contact' },
-    ];
-
     // Inline SVG icons keep the bundle dependency-free.
     const icon = (path) =>
       `<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.7">${path}</svg>`;
+
+    // ---------------------------------------------------------------
+    // i18n — UI strings for both languages. Project & methodology data
+    // already contain bilingual content elsewhere; this dictionary is for
+    // the surrounding chrome (nav, headings, buttons, paragraphs).
+    // ---------------------------------------------------------------
+    const translations = {
+      en: {
+        name: 'Mahmoud Haggag',
+        fullName: 'Mahmoud Said Haggag',
+        nav: { home: 'Home', about: 'About', skills: 'Skills', experience: 'Experience', projects: 'Projects', contact: 'Contact', getInTouch: 'Get in touch' },
+        hero: {
+          available: 'Available for new opportunities',
+          hi: "Hi, I'm",
+          role: 'Senior Full Stack Engineer.',
+          desc1: 'I design and build',
+          desc2: 'scalable, secure, production-grade',
+          desc3: 'web and mobile platforms. 9+ years shipping enterprise systems across education, eCommerce, fintech, GIS, AI-driven research, and government — backed by clean architecture, strong APIs, and DevOps automation.',
+          ctaWork: 'View my work',
+          ctaContact: 'Contact me',
+          ctaIntro: 'Watch intro',
+          statExp: 'Experience', statExpSub: 'years',
+          statProj: 'Projects', statProjSub: 'shipped',
+          statCli: 'Clients', statCliSub: 'companies',
+        },
+        about: {
+          heading: 'About me',
+          kicker: 'Backend-focused full stack engineer with a soft spot for clean architecture, fast APIs, and the systems that quietly run the business.',
+          p1: "I'm <strong class=\"text-white\">Mahmoud Said Haggag</strong>, a Senior Full Stack Software Engineer based in Alexandria, Egypt with a B.Sc. in Computer Science from Menoufia University. Over the past 9+ years I've designed and shipped enterprise-grade platforms across education, eCommerce, fintech, GIS, AI-driven research, government, and more.",
+          p2: 'My core stack is <strong class="text-white">Laravel (PHP)</strong> on the backend and <strong class="text-white">Vue.js / Nuxt.js</strong> on the frontend — backed by REST &amp; SOAP APIs, WebSockets, MySQL/Oracle/MongoDB, Docker, and CI/CD pipelines. I care about writing code that\'s tested, readable, and built to outlive me on the team.',
+          p3: 'I work well solo and inside Agile teams (Scrum / Kanban), I learn fast, and I love turning vague product asks into systems that just work.',
+          cardLocation: 'Location',           cardLocationVal: 'Alexandria, Egypt — open to on-site or remote',
+          cardEducation: 'Education',         cardEducationVal: 'B.Sc. Computer Science, Menoufia University (2012–2016)',
+          cardExperience: 'Experience',       cardExperienceVal: '9+ years · 50+ production systems · 7 companies across SA & EG',
+          cardLanguages: 'Languages',         cardLanguagesVal: 'Arabic (Native) · English (Proficient)',
+          cardIndustries: 'Industries',       cardIndustriesVal: '17+ verticals — Education, ERP, Fintech, GIS, Government, AI/ML, Logistics & more',
+          cardHowIWork: 'How I work',         cardHowIWorkVal: 'AI-augmented workflow · Agile (Scrum/Kanban) · TDD/BDD · Clean Architecture',
+        },
+        skills: {
+          heading: 'Technical skills',
+          kicker: 'The tools I reach for, organized by where they live in the stack.',
+          methHeading: 'Methodologies & practices',
+          methKicker: 'How I structure work, reason about systems, and ship reliably — beyond the toolset above.',
+          softHeading: 'Soft skills & languages',
+          softKicker: 'Who I am beyond the keyboard, and how I communicate.',
+          softTitle: 'Soft skills',
+          langTitle: 'Languages',
+        },
+        experience: {
+          heading: 'Work experience',
+          kicker: "A timeline of where I've spent my coding hours over the last decade.",
+        },
+        projects: {
+          heading: 'Featured projects',
+          kicker: 'A curated selection of production systems I designed and shipped. Click any card for details.',
+          filterAll: 'All', filterWeb: 'Web', filterMobile: 'Mobile',
+          loading: 'Loading projects...',
+          empty: 'No projects match the selected filter.',
+          clickDetails: 'Click to view details',
+          view: 'View',
+        },
+        otherProjects: {
+          heading: 'More production work',
+          kicker: 'Additional platforms I contributed to across various industries.',
+        },
+        contact: {
+          heading1: "Let's build something",
+          highlight: 'great',
+          heading2: '.',
+          desc: 'Have a product idea, a hairy backend project, or a team that needs a senior full stack engineer? Drop me a line — I usually reply within a day.',
+        },
+        modal: {
+          web: 'Web Platform',
+          mobile: 'Mobile App',
+          webLong: 'Web Platform',
+          mobileLong: 'Mobile Application',
+          visitLive: 'Visit live site',
+          builtWith: 'Built with',
+          details: 'Project details',
+          screenshots: 'Screenshots',
+          imagesUnit: 'images',
+        },
+        footer: { tagline: 'Built with Vue + Tailwind.' },
+      },
+      ar: {
+        name: 'محمود حجاج',
+        fullName: 'محمود سعيد حجاج',
+        nav: { home: 'الرئيسية', about: 'عنّى', skills: 'المهارات', experience: 'الخبرات', projects: 'المشاريع', contact: 'تواصل', getInTouch: 'تواصل معايا' },
+        hero: {
+          available: 'متاح لفرص جديدة',
+          hi: 'أهلاً، أنا',
+          role: 'Senior Full Stack Engineer.',
+          desc1: 'بصمّم وأبنى',
+          desc2: 'منصات قابلة للتوسّع، آمنة، بمستوى إنتاجى',
+          desc3: 'للويب والموبايل. أكتر من 9 سنين بشحن أنظمة Enterprise فى مجالات التعليم، الـ eCommerce، الفنتك، الـ GIS، أبحاث الذكاء الاصطناعى، والحكومى — مدعوم بـ Clean Architecture وAPIs قوية وDevOps automation.',
+          ctaWork: 'استعرض أعمالى',
+          ctaContact: 'تواصل معايا',
+          ctaIntro: 'شغّل التعريف',
+          statExp: 'الخبرة', statExpSub: 'سنين',
+          statProj: 'مشاريع', statProjSub: 'تم شحنها',
+          statCli: 'العملاء', statCliSub: 'شركة',
+        },
+        about: {
+          heading: 'عنّى',
+          kicker: 'مهندس Full Stack بتركيز على الـ Backend ومتعلّق بالـ Clean Architecture والـ APIs السريعة والأنظمة اللى بتشغّل البيزنس بهدوء.',
+          p1: 'أنا <strong class="text-white">محمود سعيد حجاج</strong>، مهندس Senior Full Stack من الإسكندرية، مصر، خريج علوم حاسب من جامعة المنوفية. على مدار +9 سنين بصمّم وأشحن منصات بمستوى Enterprise فى التعليم، الـ eCommerce، الفنتك، الـ GIS، أبحاث الذكاء الاصطناعى، الحكومى، وأكتر.',
+          p2: 'الـ Stack الأساسى عندى <strong class="text-white">Laravel (PHP)</strong> فى الـ backend و<strong class="text-white">Vue.js / Nuxt.js</strong> فى الـ frontend — مع REST و SOAP APIs، WebSockets، MySQL/Oracle/MongoDB، Docker، وCI/CD pipelines. بهتم أكتب كود متيستد، مقروء، ومبنى يفضل بعدى فى التيم.',
+          p3: 'بشتغل كويس بمفردى وداخل تيم Agile (Scrum / Kanban)، بتعلّم بسرعة، وبحب أحوّل الطلبات الـ vague لأنظمة بتشتغل صح.',
+          cardLocation: 'المكان',          cardLocationVal: 'الإسكندرية، مصر — متاح On-site أو Remote',
+          cardEducation: 'الدراسة',        cardEducationVal: 'بكالوريوس علوم حاسب، جامعة المنوفية (2012–2016)',
+          cardExperience: 'الخبرة',        cardExperienceVal: '+9 سنين · +50 نظام إنتاجى · 7 شركات فى السعودية ومصر',
+          cardLanguages: 'اللغات',         cardLanguagesVal: 'العربية (لغة أم) · الإنجليزية (Proficient)',
+          cardIndustries: 'المجالات',      cardIndustriesVal: '+17 مجال — تعليم، ERP، فنتك، GIS، حكومى، AI/ML، Logistics وأكتر',
+          cardHowIWork: 'إزاى بشتغل',     cardHowIWorkVal: 'AI-augmented workflow · Agile (Scrum/Kanban) · TDD/BDD · Clean Architecture',
+        },
+        skills: {
+          heading: 'المهارات التقنية',
+          kicker: 'الأدوات اللى بشتغل بيها، مرتّبة حسب مكانها فى الـ Stack.',
+          methHeading: 'المنهجيات والممارسات',
+          methKicker: 'إزاى بنظّم الشغل، بفكّر فى الأنظمة، وبشحن بثبات — بعيداً عن الأدوات اللى فوق.',
+          softHeading: 'المهارات الشخصية واللغات',
+          softKicker: 'مين أنا بعيداً عن الكيبورد، وإزاى بتواصل.',
+          softTitle: 'مهارات شخصية',
+          langTitle: 'اللغات',
+        },
+        experience: {
+          heading: 'الخبرات العملية',
+          kicker: 'خط زمنى للأماكن اللى قضيت فيها ساعات الكود على مدار العقد الأخير.',
+        },
+        projects: {
+          heading: 'مشاريع مختارة',
+          kicker: 'مجموعة منتقاة من الأنظمة الإنتاجية اللى صمّمتها وشحنتها. اضغط على أى كارت للتفاصيل.',
+          filterAll: 'الكل', filterWeb: 'ويب', filterMobile: 'موبايل',
+          loading: 'جارى التحميل...',
+          empty: 'مفيش مشاريع تطابق الفلتر المختار.',
+          clickDetails: 'اضغط للتفاصيل',
+          view: 'عرض',
+        },
+        otherProjects: {
+          heading: 'أعمال إنتاجية إضافية',
+          kicker: 'منصات أخرى ساهمت فيها فى مجالات متنوّعة.',
+        },
+        contact: {
+          heading1: 'يلا نبنى حاجة',
+          highlight: 'متميّزة',
+          heading2: '.',
+          desc: 'عندك فكرة منتج، مشروع backend صعب، أو تيم محتاج مهندس Senior Full Stack؟ ابعتلى رسالة — عادةً برد خلال يوم.',
+        },
+        modal: {
+          web: 'منصة ويب',
+          mobile: 'تطبيق موبايل',
+          webLong: 'منصة ويب',
+          mobileLong: 'تطبيق موبايل',
+          visitLive: 'زيارة الموقع',
+          builtWith: 'التقنيات المستخدمة',
+          details: 'تفاصيل المشروع',
+          screenshots: 'صور من المشروع',
+          imagesUnit: 'صورة',
+        },
+        footer: { tagline: 'مبنى بـ Vue + Tailwind.' },
+      },
+    };
+    const t = computed(() => translations[lang.value]);
+
+    const navLinks = computed(() => [
+      { id: 'home',       label: t.value.nav.home },
+      { id: 'about',      label: t.value.nav.about },
+      { id: 'skills',     label: t.value.nav.skills },
+      { id: 'experience', label: t.value.nav.experience },
+      { id: 'projects',   label: t.value.nav.projects },
+      { id: 'contact',    label: t.value.nav.contact },
+    ]);
 
     // Tooling skills — mirrors the CV's first three "Technical Skills"
     // subsections (Programming Languages / Backend / Frontend) verbatim,
@@ -123,11 +286,12 @@ createApp({
 
     // Soft skills & languages — mirror the CV's "Soft Skills" and
     // "Language Skills" sections so the site stays a 1:1 reflection.
+    // Bilingual so the global lang toggle flips them with the rest.
     const softSkills = [
-      'Self-motivated, problem-solver',
-      'Team and independent worker',
-      'Thrives under pressure',
-      'Passionate about new technologies',
+      { en: 'Self-motivated, problem-solver',     ar: 'مبادر ذاتياً وحلّال للمشاكل' },
+      { en: 'Team and independent worker',        ar: 'بشتغل ضمن فريق ومستقل بنفس الكفاءة' },
+      { en: 'Thrives under pressure',             ar: 'بأدّى أحسن تحت الضغط' },
+      { en: 'Passionate about new technologies',  ar: 'شغوف بالتقنيات الجديدة' },
     ];
 
     const languageSkills = [
@@ -227,6 +391,97 @@ createApp({
       },
     ];
 
+    // Animated intro — 6 scenes synced to the recorded narration script.
+    // Each scene has its own duration, tags for visual flavor, and bilingual
+    // copy that mirrors the EN/AR scripts the user locked in.
+    const introScenes = [
+      {
+        duration: 8000,
+        tags: [],
+        en: {
+          kicker: 'Hello',
+          title: "I'm Mahmoud Haggag",
+          subtitle: 'Full Stack Developer · 9+ years building web applications.',
+        },
+        ar: {
+          kicker: 'السلام عليكم',
+          title: 'أنا محمود حجاج',
+          subtitle: 'Full Stack Developer — خبرة أكتر من 9 سنين فى تطوير تطبيقات الويب.',
+        },
+      },
+      {
+        duration: 12000,
+        tags: ['Laravel', 'Vue.js', 'End-to-end', 'Scalable'],
+        en: {
+          kicker: 'My core stack',
+          title: 'Laravel · Vue.js',
+          subtitle: 'Building end-to-end systems and scalable solutions that handle large numbers of users efficiently.',
+        },
+        ar: {
+          kicker: 'الـ Stack الأساسى',
+          title: 'Laravel · Vue.js',
+          subtitle: 'بناء أنظمة متكاملة وحلول scalable تخدم عدد كبير من المستخدمين بكفاءة.',
+        },
+      },
+      {
+        duration: 12000,
+        tags: ['WebSockets', 'MySQL', 'MongoDB', 'Firebase', 'Performance'],
+        en: {
+          kicker: 'Real-time & data',
+          title: 'WebSockets · multi-database',
+          subtitle: 'Performance-tuned systems with the right database for each project — relational or NoSQL.',
+        },
+        ar: {
+          kicker: 'لحظى وقواعد بيانات',
+          title: 'WebSockets · قواعد بيانات متعددة',
+          subtitle: 'تحسين أداء الأنظمة والتعامل مع قواعد بيانات مختلفة حسب احتياجات كل مشروع.',
+        },
+      },
+      {
+        duration: 14000,
+        tags: ['Architecture', 'Security', 'Docker', 'GitHub Actions', 'CI/CD'],
+        en: {
+          kicker: 'Beyond just code',
+          title: 'Architecture · Security · DevOps',
+          subtitle: 'CI/CD pipelines with Docker and GitHub Actions, performance and security baked in from day one.',
+        },
+        ar: {
+          kicker: 'مش مجرد كود',
+          title: 'Architecture · Security · DevOps',
+          subtitle: 'CI/CD pipelines بـ Docker و GitHub Actions، الأمان والأداء جزء من التصميم.',
+        },
+      },
+      {
+        duration: 12000,
+        tags: ['Education', 'Data-driven', 'Management', 'ERP'],
+        en: {
+          kicker: 'Diverse projects',
+          title: 'Education · Data · Management',
+          subtitle: 'Different domains, different challenges — practical solutions across many industries.',
+        },
+        ar: {
+          kicker: 'مشاريع متنوعة',
+          title: 'تعليم · تحليل بيانات · إدارة',
+          subtitle: 'مجالات مختلفة، تحديات مختلفة، وحلول عملية فى أكتر من قطاع.',
+        },
+      },
+      {
+        duration: 10000,
+        tags: [],
+        cta: true,
+        en: {
+          kicker: "Let's collaborate",
+          title: 'Mahmoud Haggag',
+          subtitle: "If you think my experience could be a good fit — feel free to reach out.",
+        },
+        ar: {
+          kicker: 'يلا نتكلم',
+          title: 'محمود حجاج',
+          subtitle: 'لو شايف إن خبرتى مناسبة لمشروعك — تواصل معايا.',
+        },
+      },
+    ];
+
     // Other production projects from the CV that aren't in projects.json.
     const otherProjects = [
       { name: 'FocusEMS',       url: 'https://focusems.net',       desc: 'Comprehensive education management system for streamlined academic operations.' },
@@ -279,11 +534,36 @@ createApp({
     const activeFilter = ref('all');
     const selectedProject = ref(null);
     const lightboxIndex = ref(null);
+    // Global language for the entire site. Defaults to English; persisted
+    // across visits via localStorage. Reading projects.json content also
+    // uses this same ref (selectedProject.title[lang], etc.) so the user
+    // toggles once and the whole UI flips together.
+    const langKey = 'site.lang.v1';
     const lang = ref('en');
+    try {
+      const saved = localStorage.getItem(langKey);
+      if (saved === 'en' || saved === 'ar') lang.value = saved;
+    } catch (e) { /* private mode — fine */ }
+    function setLang(value) {
+      if (value !== 'en' && value !== 'ar') return;
+      lang.value = value;
+      try { localStorage.setItem(langKey, value); } catch (e) {}
+    }
     const scrolled = ref(false);
     const activeSection = ref('home');
     const mobileMenuOpen = ref(false);
     const year = new Date().getFullYear();
+
+    // Animated intro overlay state. The progress bar is driven by an
+    // rAF loop (introRafId) so it stays smooth and pause/resume-able if
+    // we ever add that. introSeenKey is bumped if the script is edited
+    // so returning visitors get the new version once.
+    const introOpen = ref(false);
+    const introScene = ref(0);
+    const introLang = ref('en');
+    const introTimerId = ref(null);
+    const introRafId = ref(null);
+    const introSeenKey = 'introSeen.v1';
 
     // ---------------------------------------------------------------
     // Computed
@@ -293,9 +573,9 @@ createApp({
       const web = projects.value.filter(p => p.category === 'web').length;
       const mobile = projects.value.filter(p => p.category === 'mobile').length;
       return [
-        { id: 'all',    label: 'All',    count: all },
-        { id: 'web',    label: 'Web',    count: web },
-        { id: 'mobile', label: 'Mobile', count: mobile },
+        { id: 'all',    label: t.value.projects.filterAll,    count: all },
+        { id: 'web',    label: t.value.projects.filterWeb,    count: web },
+        { id: 'mobile', label: t.value.projects.filterMobile, count: mobile },
       ];
     });
 
@@ -386,6 +666,12 @@ createApp({
         if (e.key === 'ArrowRight') lightboxNext();
         if (e.key === 'ArrowLeft')  lightboxPrev();
       }
+      // Intro overlay shortcuts
+      if (introOpen.value) {
+        if (e.key === 'Escape')      closeIntro();
+        if (e.key === 'ArrowRight')  nextScene();
+        if (e.key === 'ArrowLeft')   prevScene();
+      }
     }
 
     // Reveal-on-scroll for any element marked .reveal (none by
@@ -405,6 +691,59 @@ createApp({
     }
 
     // ---------------------------------------------------------------
+    // Animated intro
+    // ---------------------------------------------------------------
+    function openIntro() {
+      introScene.value = 0;
+      introOpen.value = true;
+      document.body.classList.add('modal-open');
+      // Start on next tick so the transition catches the scene 0 mount.
+      setTimeout(() => startSceneTimer(), 50);
+    }
+
+    function closeIntro() {
+      introOpen.value = false;
+      stopSceneTimer();
+      document.body.classList.remove('modal-open');
+      try { localStorage.setItem(introSeenKey, '1'); } catch (e) {}
+    }
+
+    function stopSceneTimer() {
+      if (introTimerId.value) { clearTimeout(introTimerId.value); introTimerId.value = null; }
+      if (introRafId.value)   { cancelAnimationFrame(introRafId.value); introRafId.value = null; }
+    }
+
+    function startSceneTimer() {
+      stopSceneTimer();
+      const dur = introScenes[introScene.value].duration;
+      introTimerId.value = setTimeout(() => {
+        nextScene();
+      }, dur);
+    }
+
+    function nextScene() {
+      if (introScene.value < introScenes.length - 1) {
+        introScene.value++;
+        startSceneTimer();
+      } else {
+        closeIntro();
+      }
+    }
+
+    function prevScene() {
+      if (introScene.value > 0) {
+        introScene.value--;
+        startSceneTimer();
+      }
+    }
+
+    function jumpToScene(i) {
+      if (i < 0 || i >= introScenes.length) return;
+      introScene.value = i;
+      startSceneTimer();
+    }
+
+    // ---------------------------------------------------------------
     // Lifecycle
     // ---------------------------------------------------------------
     onMounted(() => {
@@ -419,6 +758,7 @@ createApp({
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('keydown', onKeydown);
       if (revealObserver) revealObserver.disconnect();
+      stopSceneTimer();
     });
 
     // Re-set scroll lock when a modal closes mid-navigation.
@@ -426,16 +766,28 @@ createApp({
       if (!val) document.body.classList.remove('modal-open');
     });
 
+    // Apply language to <html lang/dir> so the whole document mirrors the
+    // current selection — Tailwind's logical properties (start/end) and
+    // native rendering then pick up RTL automatically.
+    watch(lang, (val) => {
+      document.documentElement.lang = val;
+      document.documentElement.dir = val === 'ar' ? 'rtl' : 'ltr';
+    }, { immediate: true });
+
     return {
       // data
       navLinks, skills, practices, softSkills, languageSkills, experience, otherProjects, contactLinks,
+      introScenes,
       // state
       projects, loadingProjects, activeFilter, selectedProject,
       lightboxIndex, lang, scrolled, activeSection, mobileMenuOpen, year,
+      introOpen, introScene,
       // computed
-      filters, filteredProjects,
+      filters, filteredProjects, t,
       // methods
       openProject, closeProject, openLightbox, lightboxNext, lightboxPrev, scrollToTop,
+      openIntro, closeIntro, nextScene, prevScene, jumpToScene,
+      setLang,
     };
   },
 }).mount('#app');

@@ -83,3 +83,38 @@ body.modal-open { overflow: hidden; }
   body { background: #fff; color: #000; }
   .card-soft { border-color: #ddd; background: #fff; }
 }
+
+/* ============================================================
+   Animated Intro Overlay
+   ============================================================ */
+
+/* Progress segment fill — duration is supplied per-scene via inline
+   style (animationDuration), so the same animation drives every scene. */
+@keyframes intro-progress-fill {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+.intro-progress {
+  animation-name: intro-progress-fill;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  width: 0%;
+}
+
+/* Tag pop-in — stagger handled via inline animationDelay in template. */
+@keyframes intro-tag-in {
+  0%   { opacity: 0; transform: translateY(8px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0)   scale(1);    }
+}
+.intro-tag {
+  opacity: 0;
+  animation: intro-tag-in 0.5s ease-out forwards;
+}
+
+/* Respect users who'd rather not see motion. */
+@media (prefers-reduced-motion: reduce) {
+  .intro-progress, .intro-tag,
+  .animate-float, .animate-spin-slow, .animate-fade-up, .animate-fade-in {
+    animation: none !important;
+  }
+}
