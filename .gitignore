@@ -1,3 +1,10 @@
 LaTeXCode_for_CoverLetter.txt
 LaTeXCode_for_MyCV.txt
 projects.json
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
