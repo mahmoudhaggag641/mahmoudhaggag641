@@ -642,7 +642,7 @@ createApp({
       // closest above the viewport's vertical midpoint.
       const offset = window.innerHeight * 0.35;
       let current = activeSection.value;
-      for (const link of navLinks) {
+      for (const link of navLinks.value) {
         const el = document.getElementById(link.id);
         if (!el) continue;
         const rect = el.getBoundingClientRect();
