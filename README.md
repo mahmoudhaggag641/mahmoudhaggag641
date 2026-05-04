@@ -12,7 +12,7 @@
   <a href="https://linkedin.com/in/mahmoudhaggag641"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
   <a href="mailto:mahmoudhaggag641@gmail.com"><img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white" /></a>
   <a href="https://wa.me/201121300234"><img src="https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" /></a>
-  <a href="https://mahmoudhaggag641.github.io/mahmoudhaggag641"><img src="https://img.shields.io/badge/Portfolio-8B5CF6?style=for-the-badge&logo=googlechrome&logoColor=white" /></a>
+  <a href="https://mahmoudhaggag.vercel.app"><img src="https://img.shields.io/badge/Portfolio-8B5CF6?style=for-the-badge&logo=googlechrome&logoColor=white" /></a>
 </p>
 
 <br />
@@ -29,7 +29,7 @@ I own the **full project lifecycle** — from discovery and analysis through arc
 
 I leverage **AI-augmented engineering** (Claude, Copilot, ChatGPT) as a force multiplier across analysis, scaffolding, testing, and review — shipping faster without compromising clean code, security, or scalability.
 
-🌐 &nbsp;**Live portfolio:** [`mahmoudhaggag641.github.io/mahmoudhaggag641`](https://mahmoudhaggag641.github.io/mahmoudhaggag641)
+🌐 &nbsp;**Live portfolio:** [`mahmoudhaggag.vercel.app`](https://mahmoudhaggag.vercel.app)
 
   </td>
   <td valign="top" width="40%">
@@ -372,7 +372,7 @@ I'm open to senior full stack roles, backend engineering positions.
   </tr>
   <tr>
     <td>🌐 &nbsp;Portfolio</td>
-    <td><a href="https://mahmoudhaggag641.github.io/mahmoudhaggag641">mahmoudhaggag641.github.io/mahmoudhaggag641</a></td>
+    <td><a href="https://mahmoudhaggag.vercel.app">mahmoudhaggag.vercel.app</a></td>
   </tr>
 </table>
 
