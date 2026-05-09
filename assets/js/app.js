@@ -394,9 +394,13 @@ createApp({
     // Animated intro — 6 scenes synced to the recorded narration script.
     // Each scene has its own duration, tags for visual flavor, and bilingual
     // copy that mirrors the EN/AR scripts the user locked in.
+    //
+    // Durations are tuned so the slide sequence finishes at the same time as
+    // the companion reel video (assets/video/intro-video-reel.mp4 — 51s):
+    //   6 + 9 + 9 + 11 + 9 + 7 = 51,000 ms
     const introScenes = [
       {
-        duration: 8000,
+        duration: 6000,
         tags: [],
         en: {
           kicker: 'Hello',
@@ -410,7 +414,7 @@ createApp({
         },
       },
       {
-        duration: 12000,
+        duration: 9000,
         tags: ['Laravel', 'Vue.js', 'End-to-end', 'Scalable'],
         en: {
           kicker: 'My core stack',
@@ -424,7 +428,7 @@ createApp({
         },
       },
       {
-        duration: 12000,
+        duration: 9000,
         tags: ['WebSockets', 'MySQL', 'MongoDB', 'Firebase', 'Performance'],
         en: {
           kicker: 'Real-time & data',
@@ -438,7 +442,7 @@ createApp({
         },
       },
       {
-        duration: 14000,
+        duration: 11000,
         tags: ['Architecture', 'Security', 'Docker', 'GitHub Actions', 'CI/CD'],
         en: {
           kicker: 'Beyond just code',
@@ -452,7 +456,7 @@ createApp({
         },
       },
       {
-        duration: 12000,
+        duration: 9000,
         tags: ['Education', 'Data-driven', 'Management', 'ERP'],
         en: {
           kicker: 'Diverse projects',
@@ -466,7 +470,7 @@ createApp({
         },
       },
       {
-        duration: 10000,
+        duration: 7000,
         tags: [],
         cta: true,
         en: {
@@ -888,7 +892,9 @@ createApp({
       introScene.value = 0;
       introOpen.value = true;
       document.body.classList.add('modal-open');
-      // Start on next tick so the transition catches the scene 0 mount.
+      // Start scene auto-advance on next tick so the transition catches
+      // the scene 0 mount. Total slide runtime is tuned to match the
+      // companion reel video duration (51s) — see introScenes notes.
       setTimeout(() => startSceneTimer(), 50);
     }
 

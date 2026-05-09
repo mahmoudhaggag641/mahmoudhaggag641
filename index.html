@@ -189,7 +189,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <!-- Custom styles -->
-  <link rel="stylesheet" href="assets/css/app.css?v=6" />
+  <link rel="stylesheet" href="assets/css/app.css?v=7" />
 </head>
 
 <body class="bg-ink-950 text-slate-200 font-sans antialiased selection:bg-brand-500/40 selection:text-white">
@@ -750,122 +750,192 @@
            @click.self="closeIntro"
            class="fixed inset-0 z-[70] bg-ink-950/85 backdrop-blur-md grid place-items-center p-4 sm:p-6 overflow-y-auto">
 
-        <div class="relative w-full max-w-3xl bg-ink-900 rounded-2xl border border-white/10 shadow-2xl overflow-hidden"
+        <!-- ============================================================
+             HORIZONTAL VIDEO PLAYER  (currently HIDDEN)
+
+             To re-enable this single-video intro instead of the slides:
+               1. Set the v-if on THIS div to "true"
+               2. Set the v-if on the slides template below to "false"
+               3. In assets/js/app.js → openIntro(), comment out the
+                  `setTimeout(() => startSceneTimer(), 50)` line again
+                  (otherwise the slide timer keeps running in the
+                  background and auto-closes the modal after ~51 s).
+             ============================================================ -->
+        <div v-if="false"
+             class="relative w-full max-w-3xl bg-ink-900 rounded-2xl border border-white/10 shadow-2xl overflow-hidden"
              :dir="lang === 'ar' ? 'rtl' : 'ltr'">
 
-          <!-- Decorative blob (subtle, contained inside the modal) -->
-          <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
-            <div class="absolute -top-20 -left-20 w-72 h-72 rounded-full bg-brand-700/20 blur-3xl"></div>
-            <div class="absolute -bottom-20 -right-20 w-72 h-72 rounded-full bg-fuchsia-700/15 blur-3xl"></div>
-          </div>
+          <!-- Floating close button overlaid on the video -->
+          <button @click="closeIntro"
+                  class="absolute top-3 end-3 z-20 h-9 w-9 grid place-items-center rounded-full bg-ink-950/70 backdrop-blur-md ring-1 ring-white/10 text-white hover:bg-ink-950/90 hover:ring-white/20 transition"
+                  aria-label="Close">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
 
-          <!-- Top control bar -->
-          <div class="relative z-10 flex items-center gap-2.5 px-5 py-3 border-b border-white/10 bg-ink-900/80 backdrop-blur">
-            <!-- Progress segments -->
-            <div class="flex gap-1 flex-1">
-              <button v-for="(s, i) in introScenes" :key="i"
-                      @click="jumpToScene(i)"
-                      class="h-1 flex-1 rounded-full overflow-hidden bg-white/10 transition cursor-pointer hover:bg-white/15"
-                      :aria-label="'Go to scene ' + (i + 1)">
-                <div v-if="i < introScene" class="h-full w-full bg-gradient-to-r from-brand-400 to-fuchsia-500"></div>
-                <div v-else-if="i === introScene"
-                     :key="'intro-progress-' + introScene"
-                     class="h-full bg-gradient-to-r from-brand-400 to-fuchsia-500 intro-progress"
-                     :style="{ animationDuration: introScenes[introScene].duration + 'ms' }"></div>
+          <!-- The intro video itself. autoplay works here because the
+               modal was opened by an explicit user gesture (the
+               "Watch intro" button), so browsers permit sound. -->
+          <video controls autoplay playsinline preload="metadata"
+                 class="block w-full h-auto bg-black aspect-video">
+            <source src="assets/video/into-video.mp4" type="video/mp4" />
+            <p class="p-6 text-center text-slate-300">
+              Your browser doesn't support embedded video.
+              <a href="assets/video/into-video.mp4" class="text-brand-300 underline">
+                Download the intro video instead.
+              </a>
+            </p>
+          </video>
+        </div>
+
+        <!-- ============================================================
+             SLIDES INTRO  (currently ACTIVE)
+
+             6-scene kinetic-typography intro paired with the vertical
+             reel video (assets/video/intro-video-reel.mp4). The slide
+             timings sum to 51 s — same as the video — so they finish
+             together when the modal auto-closes.
+
+             To swap back to the horizontal single-video player:
+             see the HORIZONTAL VIDEO PLAYER block above.
+             ============================================================ -->
+        <template v-if="true">
+          <div class="relative w-full max-w-3xl sm:max-w-4xl lg:max-w-5xl bg-ink-900 rounded-2xl border border-white/10 shadow-2xl overflow-hidden"
+               :dir="lang === 'ar' ? 'rtl' : 'ltr'">
+
+            <!-- Decorative blob (subtle, contained inside the modal) -->
+            <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
+              <div class="absolute -top-20 -left-20 w-72 h-72 rounded-full bg-brand-700/20 blur-3xl"></div>
+              <div class="absolute -bottom-20 -right-20 w-72 h-72 rounded-full bg-fuchsia-700/15 blur-3xl"></div>
+            </div>
+
+            <!-- Top control bar -->
+            <div class="relative z-10 flex items-center gap-2.5 px-5 py-3 border-b border-white/10 bg-ink-900/80 backdrop-blur">
+              <!-- Progress segments -->
+              <div class="flex gap-1 flex-1">
+                <button v-for="(s, i) in introScenes" :key="i"
+                        @click="jumpToScene(i)"
+                        class="h-1 flex-1 rounded-full overflow-hidden bg-white/10 transition cursor-pointer hover:bg-white/15"
+                        :aria-label="'Go to scene ' + (i + 1)">
+                  <div v-if="i < introScene" class="h-full w-full bg-gradient-to-r from-brand-400 to-fuchsia-500"></div>
+                  <div v-else-if="i === introScene"
+                       :key="'intro-progress-' + introScene"
+                       class="h-full bg-gradient-to-r from-brand-400 to-fuchsia-500 intro-progress"
+                       :style="{ animationDuration: introScenes[introScene].duration + 'ms' }"></div>
+                </button>
+              </div>
+
+              <!-- Close -->
+              <button @click="closeIntro"
+                      class="h-7 w-7 grid place-items-center rounded-md border border-white/10 bg-white/5 text-slate-300 hover:text-white hover:bg-white/10 transition"
+                      aria-label="Close">
+                <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
               </button>
             </div>
 
-            <!-- Close -->
-            <button @click="closeIntro"
-                    class="h-7 w-7 grid place-items-center rounded-md border border-white/10 bg-white/5 text-slate-300 hover:text-white hover:bg-white/10 transition"
-                    aria-label="Close">
-              <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
+            <!-- Scene stage -->
+            <div class="relative z-10 p-6 sm:p-8 grid sm:grid-cols-2 gap-6 sm:gap-10 items-center min-h-[340px]">
 
-          <!-- Scene stage -->
-          <div class="relative z-10 p-6 sm:p-8 grid sm:grid-cols-5 gap-6 sm:gap-8 items-center min-h-[340px]">
+              <!-- Reel-video column (vertical 9:16, replaces the static photo)
+                   Width is driven by max-w-* breakpoints so the video fills
+                   the column instead of being shrunk by a fixed height. The
+                   aspect-[9/16] then derives the natural reel height. -->
+              <div class="flex justify-center">
+                <div class="relative w-full max-w-[15rem] sm:max-w-[19rem] lg:max-w-[22rem]">
+                  <!-- Glow halo behind the video -->
+                  <div class="absolute -inset-3 rounded-3xl bg-gradient-to-br from-brand-500/30 via-fuchsia-500/20 to-cyan-500/20 blur-2xl"></div>
+                  <!-- Animated gradient border -->
+                  <div class="absolute -inset-px rounded-2xl bg-gradient-to-br from-brand-400 via-fuchsia-500 to-cyan-400 opacity-70"></div>
+                  <!-- Video frame -->
+                  <div class="relative aspect-[9/16] overflow-hidden rounded-2xl ring-1 ring-white/10 shadow-2xl bg-black">
+                    <!--
+                      Audio plays because the modal was opened by an explicit
+                      user gesture (the "Watch intro" button), which gives us
+                      transient user activation — modern browsers allow
+                      autoplay with sound under that flag. `loop` is OFF so
+                      the narration doesn't replay; the modal closes itself
+                      when the slide timer hits 51s, matching video length.
+                    -->
+                    <video v-if="introOpen"
+                           autoplay playsinline preload="auto"
+                           class="h-full w-full object-cover">
+                      <source src="assets/video/intro-video-reel.mp4" type="video/mp4" />
+                    </video>
+                  </div>
+                </div>
+              </div>
 
-            <!-- Photo column -->
-            <div class="sm:col-span-2 flex justify-center">
-              <div class="relative">
-                <div class="absolute -inset-3 rounded-full bg-gradient-to-br from-brand-500/30 via-fuchsia-500/20 to-cyan-500/20 blur-2xl"></div>
-                <div class="absolute -inset-0.5 rounded-full bg-gradient-to-br from-brand-400 via-fuchsia-500 to-cyan-400 opacity-70 animate-spin-slow [mask-image:linear-gradient(white,transparent_70%)]"></div>
-                <div class="relative h-32 w-32 sm:h-40 sm:w-40 overflow-hidden rounded-full ring-2 ring-white/10 shadow-xl">
-                  <img src="assets/img/MY-PHOTO.jpeg" alt="Mahmoud Said Haggag"
-                       class="h-full w-full object-cover [object-position:center_22%]" />
+              <!-- Text column (re-keyed on scene change to retrigger animation) -->
+              <div class="text-center sm:text-start">
+                <div :key="'scene-' + introScene + '-' + lang" class="space-y-3 animate-fade-up">
+                  <span class="inline-block text-[10px] font-semibold uppercase tracking-[0.3em] text-brand-300">
+                    {{ introScenes[introScene][lang].kicker }}
+                  </span>
+                  <h2 class="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight leading-[1.15]">
+                    <span class="bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">
+                      {{ introScenes[introScene][lang].title }}
+                    </span>
+                  </h2>
+                  <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                    {{ introScenes[introScene][lang].subtitle }}
+                  </p>
+
+                  <!-- Tags -->
+                  <div v-if="introScenes[introScene].tags && introScenes[introScene].tags.length"
+                       class="flex flex-wrap gap-1.5 justify-center sm:justify-start pt-1">
+                    <span v-for="(tag, ti) in introScenes[introScene].tags" :key="tag"
+                          class="text-[11px] sm:text-xs font-medium px-2 py-1 rounded-md bg-brand-500/10 border border-brand-500/30 text-brand-200 intro-tag"
+                          :style="{ animationDelay: (ti * 0.1) + 's' }">
+                      {{ tag }}
+                    </span>
+                  </div>
+
+                  <!-- CTAs (final scene) -->
+                  <div v-if="introScenes[introScene].cta"
+                       class="flex flex-wrap gap-2 justify-center sm:justify-start pt-2">
+                    <a href="#projects" @click="closeIntro"
+                       class="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-brand-500 to-fuchsia-600 px-3.5 py-2 text-xs font-semibold text-white shadow-lg shadow-brand-600/30 hover:-translate-y-0.5 transition">
+                      {{ lang === 'ar' ? 'استعرض أعمالى' : 'View my work' }}
+                    </a>
+                    <a href="#contact" @click="closeIntro"
+                       class="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3.5 py-2 text-xs font-semibold text-white hover:bg-white/10 transition">
+                      {{ lang === 'ar' ? 'تواصل معايا' : 'Get in touch' }}
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- Text column (re-keyed on scene change to retrigger animation) -->
-            <div class="sm:col-span-3 text-center sm:text-start">
-              <div :key="'scene-' + introScene + '-' + lang" class="space-y-3 animate-fade-up">
-                <span class="inline-block text-[10px] font-semibold uppercase tracking-[0.3em] text-brand-300">
-                  {{ introScenes[introScene][lang].kicker }}
-                </span>
-                <h2 class="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight leading-[1.15]">
-                  <span class="bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">
-                    {{ introScenes[introScene][lang].title }}
-                  </span>
-                </h2>
-                <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
-                  {{ introScenes[introScene][lang].subtitle }}
-                </p>
+            <!-- Bottom controls -->
+            <div class="relative z-10 flex items-center justify-between gap-3 px-5 py-3 border-t border-white/10 bg-ink-900/80 backdrop-blur">
+              <button @click="prevScene" :disabled="introScene === 0"
+                      class="inline-flex items-center gap-1.5 h-8 px-3 rounded-md border border-white/10 bg-white/5 text-xs font-medium text-slate-300 hover:bg-white/10 hover:text-white transition disabled:opacity-30 disabled:cursor-not-allowed">
+                <svg class="h-3 w-3 rtl:-scale-x-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                {{ lang === 'ar' ? 'السابق' : 'Prev' }}
+              </button>
 
-                <!-- Tags -->
-                <div v-if="introScenes[introScene].tags && introScenes[introScene].tags.length"
-                     class="flex flex-wrap gap-1.5 justify-center sm:justify-start pt-1">
-                  <span v-for="(tag, ti) in introScenes[introScene].tags" :key="tag"
-                        class="text-[11px] sm:text-xs font-medium px-2 py-1 rounded-md bg-brand-500/10 border border-brand-500/30 text-brand-200 intro-tag"
-                        :style="{ animationDelay: (ti * 0.1) + 's' }">
-                    {{ tag }}
-                  </span>
-                </div>
+              <span class="text-xs font-mono text-slate-400 tabular-nums">
+                {{ String(introScene + 1).padStart(2, '0') }}
+                <span class="text-slate-600">/</span>
+                {{ String(introScenes.length).padStart(2, '0') }}
+              </span>
 
-                <!-- CTAs (final scene) -->
-                <div v-if="introScenes[introScene].cta"
-                     class="flex flex-wrap gap-2 justify-center sm:justify-start pt-2">
-                  <a href="#projects" @click="closeIntro"
-                     class="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-brand-500 to-fuchsia-600 px-3.5 py-2 text-xs font-semibold text-white shadow-lg shadow-brand-600/30 hover:-translate-y-0.5 transition">
-                    {{ lang === 'ar' ? 'استعرض أعمالى' : 'View my work' }}
-                  </a>
-                  <a href="#contact" @click="closeIntro"
-                     class="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3.5 py-2 text-xs font-semibold text-white hover:bg-white/10 transition">
-                    {{ lang === 'ar' ? 'تواصل معايا' : 'Get in touch' }}
-                  </a>
-                </div>
-              </div>
+              <button @click="nextScene"
+                      class="inline-flex items-center gap-1.5 h-8 px-3 rounded-md bg-gradient-to-r from-brand-500 to-fuchsia-600 text-xs font-semibold text-white shadow-md shadow-brand-600/30 hover:shadow-brand-600/50 transition">
+                {{ lang === 'ar' ? 'التالى' : 'Next' }}
+                <svg class="h-3 w-3 rtl:-scale-x-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
             </div>
           </div>
+        </template>
 
-          <!-- Bottom controls -->
-          <div class="relative z-10 flex items-center justify-between gap-3 px-5 py-3 border-t border-white/10 bg-ink-900/80 backdrop-blur">
-            <button @click="prevScene" :disabled="introScene === 0"
-                    class="inline-flex items-center gap-1.5 h-8 px-3 rounded-md border border-white/10 bg-white/5 text-xs font-medium text-slate-300 hover:bg-white/10 hover:text-white transition disabled:opacity-30 disabled:cursor-not-allowed">
-              <svg class="h-3 w-3 rtl:-scale-x-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-              </svg>
-              {{ lang === 'ar' ? 'السابق' : 'Prev' }}
-            </button>
-
-            <span class="text-xs font-mono text-slate-400 tabular-nums">
-              {{ String(introScene + 1).padStart(2, '0') }}
-              <span class="text-slate-600">/</span>
-              {{ String(introScenes.length).padStart(2, '0') }}
-            </span>
-
-            <button @click="nextScene"
-                    class="inline-flex items-center gap-1.5 h-8 px-3 rounded-md bg-gradient-to-r from-brand-500 to-fuchsia-600 text-xs font-semibold text-white shadow-md shadow-brand-600/30 hover:shadow-brand-600/50 transition">
-              {{ lang === 'ar' ? 'التالى' : 'Next' }}
-              <svg class="h-3 w-3 rtl:-scale-x-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
-        </div>
       </div>
     </transition>
 
@@ -1096,6 +1166,6 @@
 
   </div>
 
-  <script src="assets/js/app.js?v=6"></script>
+  <script src="assets/js/app.js?v=7"></script>
 </body>
 </html>
